@@ -19,7 +19,7 @@ public class GameFrame extends JFrame {
 	GameFrame() {
 		//GButtons = new JPanel();
 		GPanel = new GamePanel(this);
-		setTitle("TRON - Game");
+		setTitle("iBEJEWELD");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		pack();
