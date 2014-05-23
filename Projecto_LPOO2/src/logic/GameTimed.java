@@ -6,7 +6,7 @@ public class GameTimed extends GameMode{
 	int maxTime;
 	
 	public GameTimed(String name, int maxTime){
-		this.name = name;
+		super(name,new Board(false));
 		this.maxTime = maxTime;
 	}
 }

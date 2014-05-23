@@ -20,4 +20,8 @@ public class Gem {
 
 		symbol = symbols[pos];
 	}
+	
+	public enum Direction {
+		Left, Right, Top, Bot
+	}
 }

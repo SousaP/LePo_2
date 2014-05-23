@@ -2,6 +2,8 @@ package logic;
 
 import java.util.Random;
 
+import logic.Gem.Direction;
+
 public class Board {
 	Gem tab[][];
 	boolean end;
@@ -10,6 +12,16 @@ public class Board {
 		creatTable();
 	}
 
+	/*
+	 * 
+	 * Maquina de estados:
+	 * Creat -> Check (se nao houver moves -> CreatTable again)
+	 * se houver, MakePlay -> (se for uma jogada decente) Filltab
+	 * sempre asiim
+	 */
+	
+	
+	
 	void creatTable() {
 		tab = new Gem[8][8];
 		char symbols[] = { 'B', 'G', 'O', 'P', 'R', 'W', 'Y' };
@@ -41,6 +53,10 @@ public class Board {
 	boolean checkPlays(Gem g, int col, int lin) {
 
 		return false;
+	}
+	
+	boolean MakePlay(int col, int lin, Direction d){
+		return end;
 	}
 
 	void fillTab() {

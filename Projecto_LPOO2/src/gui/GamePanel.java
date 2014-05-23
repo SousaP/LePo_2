@@ -18,7 +18,9 @@ import javax.swing.Timer;
 import logic.*;
 
 public class GamePanel extends JPanel {
-
+	Animation GAnimation;
+	GameMode GMode;
+	Rank GTop;
 	public GamePanel(GameFrame gameFrame) {
 	}
 	
