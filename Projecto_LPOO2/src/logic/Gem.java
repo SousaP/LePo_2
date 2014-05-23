@@ -4,19 +4,17 @@ import java.util.Random;
 
 public class Gem {
 	char symbol;
-	int col, lin;
+	Cell pos;
 	char symbols[] = { 'B', 'G', 'O', 'P', 'R', 'W', 'Y' };
 
 	Gem(char s, int c, int l) {
 		symbol = s;
-		col = c;
-		lin = l;
+		pos = new Cell(l,c);
 	}
 
 	public Gem(int c, int l) {
-		col = c;
-		lin = l;
-
+		pos = new Cell(l,c);
+		
 		Random r = new Random();
 		int pos = r.nextInt(symbols.length - 1);
 
