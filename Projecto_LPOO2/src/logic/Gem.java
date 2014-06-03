@@ -22,6 +22,10 @@ public class Gem {
 	}
 	
 	public enum Direction {
-		Left, Right, Top, Bot
+		Left, Right, Top, Bottom, Vertical, Horizontal, None
+	}
+	
+	char getSymbol() {
+		return symbol;
 	}
 }
