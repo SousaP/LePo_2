@@ -12,10 +12,13 @@ public class Board {
 		creatTable();
 	}
 
+<<<<<<< HEAD
 	public Gem[][] getTab(){
 		return tab;
 	}
 	
+=======
+>>>>>>> 53d74d0e9f2259e6a1270865b133ac84c1545397
 	void creatTable() {
 		tab = new Gem[8][8];
 		char symbols[] = { 'B', 'G', 'O', 'P', 'R', 'W', 'Y' };
@@ -35,21 +38,48 @@ public class Board {
 
 		for (int i = 0; i < tab.length; i++)
 			for (int a = 0; a < tab.length; a++) {
-				if (checkPlays(tab[i][a], 0, 1) || checkPlays(tab[i][a], 0, -1)
-						|| checkPlays(tab[i][a], 1, 0)
-						|| checkPlays(tab[i][a], -1, 0))
+				if (checkPlays(tab[i][a]) != Direction.None)
 					return true;
 			}
 
 		return false;
 	}
 
-	boolean checkPlays(Gem g, int col, int lin) {
-
-		return false;
+	Direction checkPlays(Gem g) {
+		int col = g.pos.getCol();
+		int lin = g.pos.getLine();
+		char comp = g.getSymbol();
+		// check combo a esquerda
+		if ((tab[col--][lin]).getSymbol() == (tab[col - 2][lin]).getSymbol()
+				&& (tab[col--][lin]).getSymbol() == comp)
+			return Direction.Left;
+		// check direita
+		else if ((tab[col++][lin]).getSymbol() == comp
+				&& (tab[col++][lin]).getSymbol() == comp)
+			return Direction.Right;
+		// check cima
+		else if ((tab[col][lin--]).getSymbol() == comp
+				&& (tab[col][lin--]).getSymbol() == comp)
+			return Direction.Top;
+		// check baixo
+		else if ((tab[col][lin++]).getSymbol() == comp
+				&& (tab[col][lin++]).getSymbol() == comp)
+			return Direction.Bottom;
+		// check meio vertical
+		else if ((tab[col][lin++]).getSymbol() == comp
+				&& (tab[col][lin--]).getSymbol() == comp)
+			return Direction.Vertical;
+		// check meio horizontal
+		else if ((tab[col++][lin]).getSymbol() == comp
+				&& (tab[col--][lin]).getSymbol() == comp)
+			return Direction.Horizontal;
+		else
+			return Direction.None;
 	}
-	
-	boolean MakePlay(int col, int lin, Direction d){
+
+	boolean MakePlay(int col, int lin, Direction d) {
+		
+
 		return end;
 	}
 
@@ -67,7 +97,7 @@ public class Board {
 							allfill = false;
 						} else
 							tab[i][a] = new Gem(i, a);
-		
+
 		}
 	}
 }
