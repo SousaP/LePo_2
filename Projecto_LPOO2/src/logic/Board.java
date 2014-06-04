@@ -8,19 +8,13 @@ public class Board {
 	Gem tab[][];
 	boolean end;
 
-	public Board(boolean s) {
+	public Board() {
 		creatTable();
 	}
 
-	/*
-	 * 
-	 * Maquina de estados:
-	 * Creat -> Check (se nao houver moves -> CreatTable again)
-	 * se houver, MakePlay -> (se for uma jogada decente) Filltab
-	 * sempre asiim
-	 */
-	
-	
+	public Gem[][] getTab(){
+		return tab;
+	}
 	
 	void creatTable() {
 		tab = new Gem[8][8];
