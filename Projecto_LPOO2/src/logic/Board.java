@@ -75,7 +75,8 @@ public class Board {
 			return Direction.None;
 	}
 
-	void deleteSequencesLine(int lin){
+	int deleteSequencesLine(int lin){
+		int t = 0;
 		Vector <Cell> toBeDeleted = new Vector <Cell>();
 		
 		for(int i = 0; i < (tab.length - 3); i++){
@@ -100,13 +101,15 @@ public class Board {
 		}
 		
 		for(int i = 0; i < toBeDeleted.size(); i++){
-			tab[(toBeDeleted.get(i)).getLine()][(toBeDeleted.get(i)).getCol()].resetGem();
+			tab[(toBeDeleted.get(i)).getLine()][(toBeDeleted.get(i)).getCol()] = null;
 		}
-		
+		t += toBeDeleted.size();
 		toBeDeleted.clear();
+		return t;
 	}
 	
-	void deleteSequencesCol(int col){
+	int deleteSequencesCol(int col){
+		int t = 0;
 		Vector <Cell> toBeDeleted = new Vector <Cell>();
 		
 		for(int i = 0; i < (tab.length - 3); i++){
@@ -130,15 +133,18 @@ public class Board {
 		}
 		
 		for(int i = 0; i < toBeDeleted.size(); i++){
-			tab[(toBeDeleted.get(i)).getLine()][(toBeDeleted.get(i)).getCol()].resetGem();
+			tab[(toBeDeleted.get(i)).getLine()][(toBeDeleted.get(i)).getCol()] = null;
 		}
-		
+		t = toBeDeleted.size();
 		toBeDeleted.clear();
+		return t;
 	}
 	
-	boolean MakePlay(int col, int lin, Direction d) {
+	int MakePlay(int col, int lin, Direction d) {
 		Gem temp = tab[lin][col];
 		Direction d1, d2;
+		int ret = 0;
+		
 		if(d == Direction.Bottom){
 			tab[lin][col] = tab[lin + 1][col];
 			tab[lin + 1][col] = temp;
@@ -147,22 +153,22 @@ public class Board {
 			d2 = checkPlays(tab[lin + 1][col]);
 			
 			if(d1 == Direction.Horizontal || d1 == Direction.Left || d1 == Direction.Right){
-				deleteSequencesLine(lin);
+				ret += deleteSequencesLine(lin);
 			}
 			else if(d1 != Direction.None){
-				deleteSequencesCol(col);
+				ret += deleteSequencesCol(col);
 			}
 			
 			if(d2 == Direction.Horizontal || d2 == Direction.Left || d2 == Direction.Right){
-				deleteSequencesLine(lin + 1);
+				ret += deleteSequencesLine(lin + 1);
 			}
 			else if(d2 != Direction.None){
-				deleteSequencesCol(col);
+				ret += deleteSequencesCol(col);
 			}
 			if(d2 == Direction.None && d1 == Direction.None){
 				tab[lin + 1][col] = tab[lin][col];
 				tab[lin][col] = temp;
-				return false;
+				return 0;
 			}
 			
 		}
@@ -175,27 +181,27 @@ public class Board {
 			d2 = checkPlays(tab[lin - 1][col]);
 			
 			if(d1 == Direction.Horizontal || d1 == Direction.Left || d1 == Direction.Right){
-				deleteSequencesLine(lin);
+				ret += deleteSequencesLine(lin);
 			}
 			else if(d1 != Direction.None){
-				deleteSequencesCol(col);
+				ret += deleteSequencesCol(col);
 			}
 			
 			if(d2 == Direction.Horizontal || d2 == Direction.Left || d2 == Direction.Right){
-				deleteSequencesLine(lin - 1);
+				ret += deleteSequencesLine(lin - 1);
 			}
 			else if(d2 != Direction.None){
-				deleteSequencesCol(col);
+				ret += deleteSequencesCol(col);
 			}
 			if(d2 == Direction.None && d1 == Direction.None){
 				tab[lin - 1][col] = tab[lin][col];
 				tab[lin][col] = temp;
-				return false;
+				return 0;
 			}
 			
 		}
 		
-		if(d == Direction.Right){
+		else if(d == Direction.Right){
 			tab[lin][col] = tab[lin][col + 1];
 			tab[lin][col + 1] = temp;
 			
@@ -203,27 +209,27 @@ public class Board {
 			d2 = checkPlays(tab[lin][col + 1]);
 			
 			if(d1 == Direction.Horizontal || d1 == Direction.Left || d1 == Direction.Right){
-				deleteSequencesLine(lin);
+				ret += deleteSequencesLine(lin);
 			}
 			else if(d1 != Direction.None){
-				deleteSequencesCol(col);
+				ret += deleteSequencesCol(col);
 			}
 			
 			if(d2 == Direction.Horizontal || d2 == Direction.Left || d2 == Direction.Right){
-				deleteSequencesLine(lin);
+				ret += deleteSequencesLine(lin);
 			}
 			else if(d2 != Direction.None){
-				deleteSequencesCol(col + 1);
+				ret += deleteSequencesCol(col + 1);
 			}
 			if(d2 == Direction.None && d1 == Direction.None){
 				tab[lin][col + 1] = tab[lin][col];
 				tab[lin][col] = temp;
-				return false;
+				return 0;
 			}
 			
 		}
 		
-		if(d == Direction.Left){
+		else if(d == Direction.Left){
 			tab[lin][col] = tab[lin][col - 1];
 			tab[lin][col - 1] = temp;
 			
@@ -231,27 +237,27 @@ public class Board {
 			d2 = checkPlays(tab[lin][col - 1]);
 			
 			if(d1 == Direction.Horizontal || d1 == Direction.Left || d1 == Direction.Right){
-				deleteSequencesLine(lin);
+				ret += deleteSequencesLine(lin);
 			}
 			else if(d1 != Direction.None){
-				deleteSequencesCol(col);
+				ret += deleteSequencesCol(col);
 			}
 			
 			if(d2 == Direction.Horizontal || d2 == Direction.Left || d2 == Direction.Right){
-				deleteSequencesLine(lin);
+				ret += deleteSequencesLine(lin);
 			}
 			else if(d2 != Direction.None){
-				deleteSequencesCol(col - 1);
+				ret += deleteSequencesCol(col - 1);
 			}
 			if(d2 == Direction.None && d1 == Direction.None){
 				tab[lin][col - 1] = tab[lin][col];
 				tab[lin][col] = temp;
-				return false;
+				return 0;
 			}
 			
 		}
 		
-		return true;
+		return ret;
 	}
 
 	void sweepTab(){
@@ -271,7 +277,7 @@ public class Board {
 			allfill = true;
 			for (int i = 0; i < tab.length; i++)
 				for (int a = 0; a < tab.length; a++)
-					if (tab[i][a].symbol == ' ')
+					if (tab[i][a] == null)
 						if (i > 0) {
 							tab[i][a] = tab[i - 1][a];
 							tab[i - 1][a] = new Gem(' ', i, a);

@@ -19,10 +19,6 @@ public class Gem {
 	public Image getImage(){
 		return GImage;
 	}
-	
-	void resetGem(){
-		this.symbol = ' ';
-	}
 
 	public Gem(int c, int l) {
 		pos = new Cell(l, c);
