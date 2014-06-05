@@ -9,10 +9,14 @@ public class Board {
 	Gem tab[][];
 	boolean end;
 
-	public Board(boolean s) {
+	public Board() {
 		creatTable();
 	}
 
+	public Gem[][] getTab(){
+		return tab;
+	}
+	
 	void creatTable() {
 		tab = new Gem[8][8];
 		char symbols[] = { 'B', 'G', 'O', 'P', 'R', 'W', 'Y' };

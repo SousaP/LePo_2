@@ -7,7 +7,7 @@ public class Rank{
 
 	Player Top10[];
 	
-	Rank(){
+	public Rank(){
 		
 	}
 	
