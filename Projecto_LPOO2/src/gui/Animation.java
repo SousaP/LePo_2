@@ -18,10 +18,18 @@ public class Animation {
 	Gem g1;
 	Gem g2;
 	Graphics2D g2d;
+	Image Boardpng;
+	Image Focuspng;
 
 	public Animation(GamePanel GP) {
 		GPanel = GP;
 		Type= AnimationType.None;
+		 ImageIcon temp2 = new ImageIcon(this.getClass().getResource(
+					"resources/board.png"));
+		 Boardpng = temp2.getImage();
+		 temp2 = new ImageIcon(this.getClass().getResource(
+					"resources/focus.png"));
+		 Focuspng = temp2.getImage();
 	}
 
 	void update(Gem g1, Gem g2, AnimationType Type) {
@@ -65,12 +73,10 @@ public class Animation {
 		int i;
 		int a;
 
-		ImageIcon temp2;
+	
+			
 		
-		 temp2 = new ImageIcon(this.getClass().getResource(
-					"resources/board.png"));
-			temp = temp2.getImage();
-			g2d.drawImage(temp, 0, 0, GPanel.getWidth(), GPanel.getHeight(),
+			g2d.drawImage(Boardpng, 0, 0, GPanel.getWidth(), GPanel.getHeight(),
 					null);
 
 			for (i = 0; i < tab.length; i++)
@@ -79,6 +85,10 @@ public class Animation {
 						g2d.drawImage(temp, x0 + a * nx, y0 + i * ny, nx, ny,
 								null);
 				}
+			
+			if(GPanel.Focus != null)
+			g2d.drawImage(Focuspng, x0 + GPanel.Focus.getPos().getCol() * nx, y0 + GPanel.Focus.getPos().getLine() * ny, nx, ny,
+						null);
 	}
 	
 	private void drawSwap(Graphics2D g2d) throws InterruptedException {
@@ -95,12 +105,9 @@ public class Animation {
 		int a;
 
 		int time = 0;
-		ImageIcon temp2;
 		while (time < 60) {
-			 temp2 = new ImageIcon(this.getClass().getResource(
-					"resources/board.png"));
-			temp = temp2.getImage();
-			g2d.drawImage(temp, 0, 0, GPanel.getWidth(), GPanel.getHeight(),
+			 
+			g2d.drawImage(Boardpng, 0, 0, GPanel.getWidth(), GPanel.getHeight(),
 					null);
 
 			for (i = 0; i < tab.length; i++)
@@ -139,14 +146,10 @@ public class Animation {
 		Gem[][] tab = GBoard.getTab();
 		int i;
 		int a;
-		ImageIcon temp2;
 		int time = 0;
 
 		while (time < 60) {
-			 temp2 = new ImageIcon(this.getClass().getResource(
-					"resources/board.png"));
-			temp = temp2.getImage();
-			g2d.drawImage(temp, 0, 0, GPanel.getWidth(), GPanel.getHeight(),
+			g2d.drawImage(Boardpng, 0, 0, GPanel.getWidth(), GPanel.getHeight(),
 					null);
 
 			for (i = 0; i < tab.length; i++)

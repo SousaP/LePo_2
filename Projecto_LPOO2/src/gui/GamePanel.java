@@ -76,10 +76,27 @@ public class GamePanel extends JPanel {
 	}
 
 	private void addMouse() {
-
+		
 		addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				//System.out.println("mouseClicked");
+				
+				int limx0 = getWidth() * 240 / 800;
+				int limxf = getWidth() * 760 / 800;
+				int limy0 = getHeight() * 40 / 600;
+				int limyf = getHeight() * 560 / 600;
+				
+				
+				if(e.getX() > limx0 && e.getX() < limxf &&
+						e.getY() > limy0 && e.getY() < limyf)
+					{
+					Focus = GBoard.getTab()[(e.getX() - limx0)  / 65][(e.getY() - limy0)  / 65];
+					
+					System.out.println(Focus.getPos().getCol());
+					System.out.println(Focus.getPos().getLine());
+					}
+				
+				
+			repaint();
 			}
 
 			public void mouseEntered(MouseEvent e) {

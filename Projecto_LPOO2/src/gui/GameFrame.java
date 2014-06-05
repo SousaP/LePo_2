@@ -24,6 +24,7 @@ public class GameFrame extends JFrame {
 	private JButton Gexit;
 	
 	GameFrame() {
+		
 		GButtons = new JPanel();
 		GPanel = new GamePanel(this);
 		
