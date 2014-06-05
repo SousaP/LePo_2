@@ -29,6 +29,10 @@ public class Gem {
 		symbol = symbols[pos];
 		GImage = Image();
 	}
+	
+	public Cell getPos(){
+		return pos;
+	}
 
 	public enum Direction {
 		Left, Right, Top, Bottom, Vertical, Horizontal, None

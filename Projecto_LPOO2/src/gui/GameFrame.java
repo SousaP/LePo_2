@@ -37,7 +37,6 @@ public class GameFrame extends JFrame {
 	//	addButtons();
 		setSize(800, 450);
 		setLocationRelativeTo(null);
-		GPanel.requestFocus();
 		
 	}
 	
@@ -46,14 +45,9 @@ public class GameFrame extends JFrame {
 		GNewGame.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent arg0) {
-				Icon icon = UIManager.getIcon("OptionPane.questionIcon");
-				String[] buttons = { "New Game", "Create Game",
-						"Cancel" };
-				int choice = JOptionPane
-						.showOptionDialog(rootPane, "Do you want New Game?",
-								"Start Game", JOptionPane.PLAIN_MESSAGE, 0,
-								icon, buttons, buttons[0]);
-				
+				setSize(800, 600);
+				setLocationRelativeTo(null);
+				GPanel.updateBegin(false);
 				GPanel.requestFocus();
 			}
 

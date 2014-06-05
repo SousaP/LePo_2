@@ -21,34 +21,47 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class GamePanel extends JPanel {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	boolean Inicio;
 	private Image Intro;
 	Animation GAnimation;
 	Board GBoard;
 	Rank GTop;
+	Gem Focus;
 
 	public GamePanel(GameFrame gameFrame) {
 		Inicio = true;
-		GBoard = new Board();
-		GAnimation = new Animation(GBoard,this);
+		GAnimation = new Animation(this);
 		GTop = new Rank();
+		Focus = null;
 		loadImages();
 		repaint();
 		addMouse();
 	}
-
+	
+	public void updateBegin(boolean I){
+		Inicio = I;
+		if(!Inicio)
+			GBoard = new Board();
+		repaint();
+	}
+	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponents(g);
-		Graphics2D g2 = (Graphics2D) g;
+		Graphics2D g2d = (Graphics2D) g;
 
 		if (Inicio)
-			g2.drawImage(Intro, 0, 0, getWidth(), getHeight(), null);
-
+			g2d.drawImage(Intro, 0, 0, getWidth(), getHeight(), null);
+		else
+			try {
+				
+				GAnimation.drawBoard(g2d);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		//System.out.printf("aqui");
 	}
 
 	void update() {
@@ -66,7 +79,7 @@ public class GamePanel extends JPanel {
 
 		addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				// System.out.println("mouseClicked");
+				//System.out.println("mouseClicked");
 			}
 
 			public void mouseEntered(MouseEvent e) {

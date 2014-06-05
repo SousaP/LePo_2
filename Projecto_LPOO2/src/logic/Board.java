@@ -17,6 +17,7 @@ public class Board {
 		return tab;
 	}
 	
+
 	void creatTable() {
 		tab = new Gem[8][8];
 		char symbols[] = { 'B', 'G', 'O', 'P', 'R', 'W', 'Y' };
@@ -32,6 +33,15 @@ public class Board {
 			}
 	}
 
+	public boolean FreeSpace(){
+		for (int i = 0; i < tab.length; i++)
+			for (int a = 0; a < tab.length; a++)
+				if (tab[i][a] == null)
+					return true;
+		return false;
+	}
+	
+	
 	boolean checkMoves() {
 
 		for (int i = 0; i < tab.length; i++)
