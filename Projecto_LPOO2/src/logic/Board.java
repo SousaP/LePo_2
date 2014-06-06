@@ -270,14 +270,15 @@ public class Board {
 		return ret;
 	}
 
-	void sweepTab(){
+	int sweepTab(){
+		int t = 0;
 		for(int l = 0; l < tab.length; l++){
-			deleteSequencesLine(l);
+			t += deleteSequencesLine(l);
 		}
 		for(int c = 0; c < tab.length; c++){
-			deleteSequencesCol(c);
+			t += deleteSequencesCol(c);
 		}
-		
+		return t;
 	}
 	
 	void fillTab() {
