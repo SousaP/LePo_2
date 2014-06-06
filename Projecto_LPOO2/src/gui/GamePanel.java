@@ -29,6 +29,14 @@ public class GamePanel extends JPanel {
 	Rank GTop;
 	Gem Focus;
 
+	//Limites do board
+	int limx0;
+	int limxf;
+	int limy0;
+	int limyf;
+	
+	
+	
 	public GamePanel(GameFrame gameFrame) {
 		Inicio = true;
 		GAnimation = new Animation(this);
@@ -80,10 +88,10 @@ public class GamePanel extends JPanel {
 		addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				
-				int limx0 = getWidth() * 240 / 800;
-				int limxf = getWidth() * 760 / 800;
-				int limy0 = getHeight() * 40 / 600;
-				int limyf = getHeight() * 560 / 600;
+				limx0 = getWidth() * 240 / 800;
+				limxf = getWidth() * 760 / 800;
+				limy0 = getHeight() * 40 / 600;
+				limyf = getHeight() * 560 / 600;
 				
 				
 				if(e.getX() > limx0 && e.getX() < limxf &&
@@ -91,8 +99,6 @@ public class GamePanel extends JPanel {
 					{
 					Focus = GBoard.getTab()[(e.getX() - limx0)  / (getWidth() * 66 / 800)][(e.getY() - limy0)  / (getHeight() *66 / 600)];
 					
-					System.out.println(Focus.getPos().getCol());
-					System.out.println(Focus.getPos().getLine());
 					}
 				
 				

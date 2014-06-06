@@ -20,6 +20,11 @@ public class Animation {
 	Graphics2D g2d;
 	Image Boardpng;
 	Image Focuspng;
+	
+	//Largura Gem
+	int nx;
+	int ny;
+	
 
 	public Animation(GamePanel GP) {
 		GPanel = GP;
@@ -62,11 +67,11 @@ public class Animation {
 	}
 	
 	private void DrawBoard(Graphics2D g2d){
-		int x0 = GPanel.getWidth() * 240 / 800;
-		int y0 = GPanel.getHeight() * 40 / 600;
+		GPanel.limx0 = GPanel.getWidth() * 240 / 800;
+		GPanel.limy0 = GPanel.getHeight() * 40 / 600;
 
-		int nx = (GPanel.getWidth() * 66 / 800);
-		int ny = (GPanel.getHeight() * 66 / 600);
+		nx = (GPanel.getWidth() * 66 / 800);
+		ny = (GPanel.getHeight() * 66 / 600);
 
 		Image temp = null;
 		Gem[][] tab = GBoard.getTab();
@@ -82,22 +87,22 @@ public class Animation {
 			for (i = 0; i < tab.length; i++)
 				for (a = 0; a < tab.length; a++) {
 					temp = tab[a][i].getImage();
-						g2d.drawImage(temp, x0 + a * nx, y0 + i * ny, nx, ny,
+						g2d.drawImage(temp, GPanel.limx0 + a * nx, GPanel.limy0 + i * ny, nx, ny,
 								null);
 				}
 			
 			if(GPanel.Focus != null)
-			g2d.drawImage(Focuspng, x0 + GPanel.Focus.getPos().getCol() * nx, y0 + GPanel.Focus.getPos().getLine() * ny, nx, ny,
+			g2d.drawImage(Focuspng, GPanel.limx0 + GPanel.Focus.getPos().getCol() * nx, GPanel.limy0 + GPanel.Focus.getPos().getLine() * ny, nx, ny,
 						null);
 	}
 	
 	private void drawSwap(Graphics2D g2d) throws InterruptedException {
 
-		int x0 = GPanel.getWidth() * 240 / 800;
-		int y0 = GPanel.getHeight() * 40 / 600;
+		GPanel.limx0 = GPanel.getWidth() * 240 / 800;
+		GPanel.limy0 = GPanel.getHeight() * 40 / 600;
 
-		int nx = (GPanel.getWidth() * 66 / 800);
-		int ny = (GPanel.getHeight() * 66 / 600);
+		nx = (GPanel.getWidth() * 66 / 800);
+		ny = (GPanel.getHeight() * 66 / 600);
 
 		Image temp = null;
 		Gem[][] tab = GBoard.getTab();
@@ -114,18 +119,18 @@ public class Animation {
 				for (a = 0; a < tab.length; a++) {
 					temp = tab[a][i].getImage();
 					if (tab[a][i] != g1 || tab[a][i] != g2)
-						g2d.drawImage(temp, x0 + a * nx, y0 + i * ny, nx, ny,
+						g2d.drawImage(temp, GPanel.limx0 + a * nx, GPanel.limy0 + i * ny, nx, ny,
 								null);
 				}
 			
 			temp = g2.getImage();
 
-			g2d.drawImage(temp, x0 + g2.getPos().getCol() * nx + 66/ (60 + time), y0 + g2.getPos().getLine() * ny + 66/ (60 + time), nx, ny,
+			g2d.drawImage(temp, GPanel.limx0 + g2.getPos().getCol() * nx + 66/ (60 + time), GPanel.limy0 + g2.getPos().getLine() * ny + 66/ (60 + time), nx, ny,
 					null);
 			
 			temp = g1.getImage();
 
-			g2d.drawImage(temp, x0 + g1.getPos().getCol() * nx + 66/ (60 + time), y0 + g1.getPos().getLine() * ny + 66/ (60 + time), nx, ny,
+			g2d.drawImage(temp, GPanel.limx0 + g1.getPos().getCol() * nx + 66/ (60 + time), GPanel.limy0 + g1.getPos().getLine() * ny + 66/ (60 + time), nx, ny,
 					null);
 			
 			Thread.sleep(16);
@@ -136,11 +141,11 @@ public class Animation {
 
 	private void drawSwapBack(Graphics2D g2d) throws InterruptedException {
 
-		int x0 = GPanel.getWidth() * 240 / 800;
-		int y0 = GPanel.getHeight() * 40 / 600;
+		GPanel.limx0 = GPanel.getWidth() * 240 / 800;
+		GPanel.limy0 = GPanel.getHeight() * 40 / 600;
 
-		int nx = (GPanel.getWidth() * 66 / 800);
-		int ny = (GPanel.getHeight() * 66 / 600);
+		nx = (GPanel.getWidth() * 66 / 800);
+		ny = (GPanel.getHeight() * 66 / 600);
 
 		Image temp = null;
 		Gem[][] tab = GBoard.getTab();
@@ -156,18 +161,18 @@ public class Animation {
 				for (a = 0; a < tab.length; a++) {
 					temp = tab[a][i].getImage();
 					if (tab[a][i] != g1 || tab[a][i] != g2)
-						g2d.drawImage(temp, x0 + a * nx, y0 + i * ny, nx, ny,
+						g2d.drawImage(temp, GPanel.limx0 + a * nx, GPanel.limy0 + i * ny, nx, ny,
 								null);
 				}
 			
 			temp = g2.getImage();
 
-			g2d.drawImage(temp, x0 + g2.getPos().getCol() * nx - 66/ (60 + time), y0 + g2.getPos().getLine() * ny + 66/ (60 + time), nx, ny,
+			g2d.drawImage(temp, GPanel.limx0 + g2.getPos().getCol() * nx - 66/ (60 + time), GPanel.limy0 + g2.getPos().getLine() * ny + 66/ (60 + time), nx, ny,
 					null);
 			
 			temp = g1.getImage();
 
-			g2d.drawImage(temp, x0 + g1.getPos().getCol() * nx - 66/ (60 + time), y0 + g1.getPos().getLine() * ny + 66/ (60 + time), nx, ny,
+			g2d.drawImage(temp, GPanel.limx0 + g1.getPos().getCol() * nx - 66/ (60 + time), GPanel.limy0 + g1.getPos().getLine() * ny + 66/ (60 + time), nx, ny,
 					null);
 			
 			Thread.sleep(16);
@@ -177,11 +182,11 @@ public class Animation {
 	}
 
 	private void drawFill() throws InterruptedException {
-		int x0 = GPanel.getWidth() * 240 / 800;
-		int y0 = GPanel.getHeight() * 40 / 600;
+		GPanel.limx0 = GPanel.getWidth() * 240 / 800;
+		GPanel.limy0 = GPanel.getHeight() * 40 / 600;
 
-		int nx = (GPanel.getWidth() * 66 / 800);
-		int ny = (GPanel.getHeight() * 66 / 600);
+		nx = (GPanel.getWidth() * 66 / 800);
+		ny = (GPanel.getHeight() * 66 / 600);
 
 		Image temp = null;
 		Gem[][] tab = GBoard.getTab();
