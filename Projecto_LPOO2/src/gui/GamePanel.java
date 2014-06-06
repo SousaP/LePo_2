@@ -89,7 +89,7 @@ public class GamePanel extends JPanel {
 				if(e.getX() > limx0 && e.getX() < limxf &&
 						e.getY() > limy0 && e.getY() < limyf)
 					{
-					Focus = GBoard.getTab()[(e.getX() - limx0)  / 65][(e.getY() - limy0)  / 65];
+					Focus = GBoard.getTab()[(e.getX() - limx0)  / (getWidth() * 66 / 800)][(e.getY() - limy0)  / (getHeight() *66 / 600)];
 					
 					System.out.println(Focus.getPos().getCol());
 					System.out.println(Focus.getPos().getLine());
