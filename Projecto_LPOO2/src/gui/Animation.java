@@ -108,7 +108,11 @@ public class Animation {
 			else
 			{
 				
+				g2d.drawImage(g2.getImage(), GPanel.limx0 + p2.getCol() * nx,
+						GPanel.limy0 + p2.getLine() * ny - distancia, nx, ny, null);
 				
+				g2d.drawImage(g1.getImage(), GPanel.limx0 + p1.getCol() * nx,
+						GPanel.limy0 + p1.getLine() * ny + distancia, nx, ny, null);
 				
 				
 			}
@@ -117,7 +121,27 @@ public class Animation {
 			
 		}
 		else
-		{//mesma linha
+		{
+			
+			if(p1.getCol() > p2.getCol())
+			{
+				g2d.drawImage(g2.getImage(), GPanel.limx0 + p2.getCol() * nx + distancia,
+						GPanel.limy0 + p2.getLine() * ny , nx, ny, null);
+				
+				g2d.drawImage(g1.getImage(), GPanel.limx0 + p1.getCol() * nx - distancia,
+						GPanel.limy0 + p1.getLine() * ny, nx, ny, null);
+				
+			}
+			else
+			{
+				g2d.drawImage(g2.getImage(), GPanel.limx0 + p2.getCol() * nx - distancia,
+						GPanel.limy0 + p2.getLine() * ny , nx, ny, null);
+				
+				g2d.drawImage(g1.getImage(), GPanel.limx0 + p1.getCol() * nx + distancia,
+						GPanel.limy0 + p1.getLine() * ny, nx, ny, null);
+				
+				
+			}
 			
 			
 			
