@@ -13,6 +13,7 @@ import java.awt.event.KeyListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -31,6 +32,7 @@ public class GamePanel extends JPanel {
 	Board GBoard;
 	Rank GTop;
 	Gem Focus;
+	JLabel JScore;
 	int Score;
 	
 	// Limites do board
@@ -53,6 +55,10 @@ public class GamePanel extends JPanel {
 		Inicio = I;
 		if (!Inicio)
 			GBoard = new Board();
+		
+		GAnimation.g1 = null;
+		GAnimation.g2 = null;
+		Focus = null;
 		repaint();
 	}
 

@@ -50,8 +50,6 @@ public class Animation {
 			GPanel.repaint();
 
 	}
-	
-
 
 	public void DrawBoard(Graphics2D g2d) {
 
@@ -62,13 +60,17 @@ public class Animation {
 		nx = (GPanel.getWidth() * 66 / 800);
 		ny = (GPanel.getHeight() * 66 / 600);
 
-		Image temp = null;
 		Gem[][] tab = GBoard.getTab();
 		int i;
 		int a;
 
 		g2d.drawImage(Boardpng, 0, 0, GPanel.getWidth(), GPanel.getHeight(),
 				null);
+
+		if (Type == AnimationType.Fill) {
+			GemFalling(g2d);
+			return;
+		}
 
 		for (i = 0; i < tab.length; i++)
 			for (a = 0; a < tab.length; a++)
@@ -88,15 +90,51 @@ public class Animation {
 			GemSwap(g2d);
 			return;
 		}
-		
+
 		// this.Type = AnimationType.None;
 	}
 
+	private void GemFalling(Graphics2D g2d) {
+		int col;
+		int lin;
+		Gem[][] tab = GBoard.getTab();
+
+		int[] vazios = new int[tab.length];
+		for (int i = 0; i < vazios.length; i++)
+			vazios[i] = 0;
+
+		for (lin = tab.length - 1; lin >= 0; lin--)
+			for (col = tab.length - 1; col >= 0; col--)
+				if (distancia == 59) {
+					if (vazios[col] > 0) {
+
+						if (col == 0)
+							GBoard.SetPos(col, lin, new Gem(col, lin));
+
+						else {
+							g2d.drawImage(g2.getImage(), GPanel.limx0 + col
+									* nx, GPanel.limy0 + lin * ny + distancia,
+									nx, ny, null);
+
+							GBoard.SetPos(col + 1, lin, tab[col][lin]);
+							GBoard.SetPos(col, lin, null);
+						}
+					}
+				} else if (vazios[col] == 0)
+					g2d.drawImage(tab[lin][col].getImage(), GPanel.limx0 + col
+							* nx, GPanel.limy0 + lin * ny, nx, ny, null);
+				else if (vazios[col] > 0)
+					g2d.drawImage(g2.getImage(), GPanel.limx0 + col * nx,
+							GPanel.limy0 + lin * ny + distancia, nx, ny, null);
+
+		if (distancia == 59 && GBoard.FreeSpace())
+			distancia = 0;
+	}
+
 	private void GemSwap(Graphics2D g2d) {
-		if(g1 == null || g2 == null)
+		if (g1 == null || g2 == null)
 			return;
-		
-		
+
 		Cell p1 = g1.getPos();
 		Cell p2 = g2.getPos();
 
@@ -148,34 +186,29 @@ public class Animation {
 
 	}
 
-	
-	private void GemFalling(Graphics2D g2d){
-		
-	}
 	private void BoardAction() {
 		ActionListener myTimerListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// Type = AnimationType.None;
-				
+
 				GPanel.repaint();
 				distancia++;
 				if (distancia == 60) {
-					
+
 					distancia = 0;
-				
+
 					myTimer.stop();
-					//GBoard.MakePlay(g1,g2);
+					// GBoard.MakePlay(g1,g2);
 					GBoard.swap(g1, g2);
-					
+
 					// if jogada mal feita:
-					if(Type != AnimationType.SwapBack)
-					update(g2, g1,
-							AnimationType.SwapBack);
-			//		g1 = null;
-			//		g2 = null;
-					//Type = AnimationType.None;
-					//GPanel.repaint();
+					if (Type != AnimationType.SwapBack)
+						update(g2, g1, AnimationType.SwapBack);
+					// g1 = null;
+					// g2 = null;
+					// Type = AnimationType.None;
+					// GPanel.repaint();
 				}
 
 			}
@@ -183,11 +216,8 @@ public class Animation {
 
 		myTimer = new Timer(1, myTimerListener);
 		myTimer.start();
-		
+
 	}
-	
-
-
 
 	private void drawFill() {
 		GPanel.limx0 = GPanel.getWidth() * 240 / 800;
