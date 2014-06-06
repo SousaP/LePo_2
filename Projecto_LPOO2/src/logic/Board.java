@@ -150,10 +150,21 @@ public class Board {
 		return t;
 	}
 	
-	int MakePlay(int col, int lin, Direction d) {
-		Gem temp = tab[lin][col];
-		Direction d1, d2;
+	int MakePlay(Gem temp, Gem g2) {
+		int col = temp.getPos().getCol();
+		int lin = temp.getPos().getLine();
+		Direction d = null, d1, d2;
 		int ret = 0;
+
+		if(g2.getPos().getLine() == (lin - 1))
+			d = Direction.Top;
+		else if(g2.getPos().getLine() == (lin + 1))
+			d = Direction.Bottom;
+		else if(g2.getPos().getCol() == (col - 1))
+			d = Direction.Left;
+		else if(g2.getPos().getCol() == (col + 1))
+			d = Direction.Right;
+		
 		
 		if(d == Direction.Bottom){
 			tab[lin][col] = tab[lin + 1][col];
