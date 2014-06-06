@@ -44,12 +44,14 @@ public class Animation {
 		this.g2 = g2;
 		this.Type = Type;
 
-		if (Type == AnimationType.Swap)
-			BoardSwap();
+		if (Type != AnimationType.None)
+			BoardAction();
 		else
 			GPanel.repaint();
 
 	}
+	
+
 
 	public void DrawBoard(Graphics2D g2d) {
 
@@ -86,81 +88,94 @@ public class Animation {
 			GemSwap(g2d);
 			return;
 		}
-
-	//	this.Type = AnimationType.None;
+		else if (Type == AnimationType.SwapBack) {
+			GemSwapBack(g2d);
+			return;
+		}
+		// this.Type = AnimationType.None;
 	}
 
 	private void GemSwap(Graphics2D g2d) {
+		if(g1 == null || g2 == null)
+			return;
+		
+		
 		Cell p1 = g1.getPos();
 		Cell p2 = g2.getPos();
-		
-		if(p1.getCol() == p2.getCol())
-		{//mesma coluna
-			
-			if(p1.getLine() > p2.getLine())
-			{
+
+		if (p1.getCol() == p2.getCol()) {// mesma coluna
+
+			if (p1.getLine() > p2.getLine()) {
 				g2d.drawImage(g2.getImage(), GPanel.limx0 + p2.getCol() * nx,
-						GPanel.limy0 + p2.getLine() * ny + distancia, nx, ny, null);
-				
+						GPanel.limy0 + p2.getLine() * ny + distancia, nx, ny,
+						null);
+
 				g2d.drawImage(g1.getImage(), GPanel.limx0 + p1.getCol() * nx,
-						GPanel.limy0 + p1.getLine() * ny - distancia, nx, ny, null);
-			}
-			else
-			{
-				
+						GPanel.limy0 + p1.getLine() * ny - distancia, nx, ny,
+						null);
+			} else {
+
 				g2d.drawImage(g2.getImage(), GPanel.limx0 + p2.getCol() * nx,
-						GPanel.limy0 + p2.getLine() * ny - distancia, nx, ny, null);
-				
+						GPanel.limy0 + p2.getLine() * ny - distancia, nx, ny,
+						null);
+
 				g2d.drawImage(g1.getImage(), GPanel.limx0 + p1.getCol() * nx,
-						GPanel.limy0 + p1.getLine() * ny + distancia, nx, ny, null);
-				
-				
+						GPanel.limy0 + p1.getLine() * ny + distancia, nx, ny,
+						null);
+
 			}
-			
-			
-			
+
+		} else {
+
+			if (p1.getCol() > p2.getCol()) {
+				g2d.drawImage(g2.getImage(), GPanel.limx0 + p2.getCol() * nx
+						+ distancia, GPanel.limy0 + p2.getLine() * ny, nx, ny,
+						null);
+
+				g2d.drawImage(g1.getImage(), GPanel.limx0 + p1.getCol() * nx
+						- distancia, GPanel.limy0 + p1.getLine() * ny, nx, ny,
+						null);
+
+			} else {
+				g2d.drawImage(g2.getImage(), GPanel.limx0 + p2.getCol() * nx
+						- distancia, GPanel.limy0 + p2.getLine() * ny, nx, ny,
+						null);
+
+				g2d.drawImage(g1.getImage(), GPanel.limx0 + p1.getCol() * nx
+						+ distancia, GPanel.limy0 + p1.getLine() * ny, nx, ny,
+						null);
+
+			}
+
 		}
-		else
-		{
-			
-			if(p1.getCol() > p2.getCol())
-			{
-				g2d.drawImage(g2.getImage(), GPanel.limx0 + p2.getCol() * nx + distancia,
-						GPanel.limy0 + p2.getLine() * ny , nx, ny, null);
-				
-				g2d.drawImage(g1.getImage(), GPanel.limx0 + p1.getCol() * nx - distancia,
-						GPanel.limy0 + p1.getLine() * ny, nx, ny, null);
-				
-			}
-			else
-			{
-				g2d.drawImage(g2.getImage(), GPanel.limx0 + p2.getCol() * nx - distancia,
-						GPanel.limy0 + p2.getLine() * ny , nx, ny, null);
-				
-				g2d.drawImage(g1.getImage(), GPanel.limx0 + p1.getCol() * nx + distancia,
-						GPanel.limy0 + p1.getLine() * ny, nx, ny, null);
-				
-				
-			}
-			
-			
-			
-			
-			
-		}
-		
+
 	}
 
-	private void BoardSwap() {
+	
+	private void GemFalling(Graphics2D g2d){
+		
+	}
+	private void BoardAction() {
 		ActionListener myTimerListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// Type = AnimationType.None;
+				
 				GPanel.repaint();
 				distancia++;
-				if (distancia == 66) {
-					myTimer.stop();
+				if (distancia == 60) {
+					
 					distancia = 0;
+					
+					
+					
+					//swap(tab[g1.getPos().getCol()][g1.getPos().getLine()],tab[g2.getPos().getCol()][g2.getPos().getLine()]);
+					myTimer.stop();
+					GBoard.swap(g1, g2);
+					g1 = null;
+					g2 = null;
+					Type = AnimationType.None;
+					GPanel.repaint();
 				}
 
 			}
@@ -168,48 +183,60 @@ public class Animation {
 
 		myTimer = new Timer(1, myTimerListener);
 		myTimer.start();
-		//Type = AnimationType.None;
+		
+		
+		
 	}
 
-	private void drawSwapBack(Graphics2D g2d) {
+	private void GemSwapBack(Graphics2D g2d) {
 
-		GPanel.limx0 = GPanel.getWidth() * 240 / 800;
-		GPanel.limy0 = GPanel.getHeight() * 40 / 600;
+		Cell p1 = g1.getPos();
+		Cell p2 = g2.getPos();
 
-		nx = (GPanel.getWidth() * 66 / 800);
-		ny = (GPanel.getHeight() * 66 / 600);
+		if (p1.getCol() == p2.getCol()) {// mesma coluna
 
-		Image temp = null;
-		Gem[][] tab = GBoard.getTab();
-		int i;
-		int a;
-		int time = 0;
+			if (p1.getLine() > p2.getLine()) {
+				g2d.drawImage(g2.getImage(), GPanel.limx0 + p2.getCol() * nx,
+						GPanel.limy0 + p2.getLine() * ny + distancia, nx, ny,
+						null);
 
-		while (time < 60) {
-			g2d.drawImage(Boardpng, 0, 0, GPanel.getWidth(),
-					GPanel.getHeight(), null);
+				g2d.drawImage(g1.getImage(), GPanel.limx0 + p1.getCol() * nx,
+						GPanel.limy0 + p1.getLine() * ny - distancia, nx, ny,
+						null);
+			} else {
 
-			for (i = 0; i < tab.length; i++)
-				for (a = 0; a < tab.length; a++) {
-					temp = tab[a][i].getImage();
-					if (tab[a][i] != g1 || tab[a][i] != g2)
-						g2d.drawImage(temp, GPanel.limx0 + a * nx, GPanel.limy0
-								+ i * ny, nx, ny, null);
-				}
+				g2d.drawImage(g2.getImage(), GPanel.limx0 + p2.getCol() * nx,
+						GPanel.limy0 + p2.getLine() * ny - distancia, nx, ny,
+						null);
 
-			temp = g2.getImage();
+				g2d.drawImage(g1.getImage(), GPanel.limx0 + p1.getCol() * nx,
+						GPanel.limy0 + p1.getLine() * ny + distancia, nx, ny,
+						null);
 
-			g2d.drawImage(temp, GPanel.limx0 + g2.getPos().getCol() * nx - 66
-					/ (60 + time), GPanel.limy0 + g2.getPos().getLine() * ny
-					+ 66 / (60 + time), nx, ny, null);
+			}
 
-			temp = g1.getImage();
+		} else {
 
-			g2d.drawImage(temp, GPanel.limx0 + g1.getPos().getCol() * nx - 66
-					/ (60 + time), GPanel.limy0 + g1.getPos().getLine() * ny
-					+ 66 / (60 + time), nx, ny, null);
+			if (p1.getCol() > p2.getCol()) {
+				g2d.drawImage(g2.getImage(), GPanel.limx0 + p2.getCol() * nx
+						+ distancia, GPanel.limy0 + p2.getLine() * ny, nx, ny,
+						null);
 
-			time++;
+				g2d.drawImage(g1.getImage(), GPanel.limx0 + p1.getCol() * nx
+						- distancia, GPanel.limy0 + p1.getLine() * ny, nx, ny,
+						null);
+
+			} else {
+				g2d.drawImage(g2.getImage(), GPanel.limx0 + p2.getCol() * nx
+						- distancia, GPanel.limy0 + p2.getLine() * ny, nx, ny,
+						null);
+
+				g2d.drawImage(g1.getImage(), GPanel.limx0 + p1.getCol() * nx
+						+ distancia, GPanel.limy0 + p1.getLine() * ny, nx, ny,
+						null);
+
+			}
+
 		}
 
 	}

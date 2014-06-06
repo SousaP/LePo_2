@@ -103,6 +103,10 @@ public class GamePanel extends JPanel {
 					repaint();
 					return;
 				}
+				
+				if(Focus.getPos().getCol() == col &&
+						Focus.getPos().getLine() == lin)
+					return;
 
 				if (Math.abs(Focus.getPos().getCol() - col) < 2
 						&& Math.abs(Focus.getPos().getLine() - lin) == 0
@@ -113,6 +117,7 @@ public class GamePanel extends JPanel {
 				else
 					Focus = GBoard.getTab()[col][lin];
 				
+				Focus = GBoard.getTab()[col][lin];
 				repaint();
 			}
 
