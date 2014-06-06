@@ -34,8 +34,6 @@ public class GameFrame extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		pack();
-	//	ButtonsActions();
-	//	addButtons();
 		setSize(800, 450);
 		setLocationRelativeTo(null);
 		

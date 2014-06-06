@@ -150,7 +150,7 @@ public class Board {
 		return t;
 	}
 	
-	int MakePlay(Gem temp, Gem g2) {
+	public int MakePlay(Gem temp, Gem g2) {
 		int col = temp.getPos().getCol();
 		int lin = temp.getPos().getLine();
 		Direction d = null, d1, d2;
