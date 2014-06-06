@@ -84,14 +84,11 @@ public class Animation {
 		if (Type == AnimationType.None)
 			return;
 
-		else if (Type == AnimationType.Swap) {
+		else if (Type == AnimationType.Swap || Type == AnimationType.SwapBack) {
 			GemSwap(g2d);
 			return;
 		}
-		else if (Type == AnimationType.SwapBack) {
-			GemSwapBack(g2d);
-			return;
-		}
+		
 		// this.Type = AnimationType.None;
 	}
 
@@ -168,12 +165,17 @@ public class Animation {
 					distancia = 0;
 				
 					myTimer.stop();
-					GBoard.MakePlay(g1,g2);
-					//GBoard.swap(g1, g2);
-					g1 = null;
-					g2 = null;
-					Type = AnimationType.None;
-					GPanel.repaint();
+					//GBoard.MakePlay(g1,g2);
+					GBoard.swap(g1, g2);
+					
+					// if jogada mal feita:
+					if(Type != AnimationType.SwapBack)
+					update(g2, g1,
+							AnimationType.SwapBack);
+			//		g1 = null;
+			//		g2 = null;
+					//Type = AnimationType.None;
+					//GPanel.repaint();
 				}
 
 			}
@@ -182,62 +184,10 @@ public class Animation {
 		myTimer = new Timer(1, myTimerListener);
 		myTimer.start();
 		
-		
-		
 	}
+	
 
-	private void GemSwapBack(Graphics2D g2d) {
 
-		Cell p1 = g1.getPos();
-		Cell p2 = g2.getPos();
-
-		if (p1.getCol() == p2.getCol()) {// mesma coluna
-
-			if (p1.getLine() > p2.getLine()) {
-				g2d.drawImage(g2.getImage(), GPanel.limx0 + p2.getCol() * nx,
-						GPanel.limy0 + p2.getLine() * ny + distancia, nx, ny,
-						null);
-
-				g2d.drawImage(g1.getImage(), GPanel.limx0 + p1.getCol() * nx,
-						GPanel.limy0 + p1.getLine() * ny - distancia, nx, ny,
-						null);
-			} else {
-
-				g2d.drawImage(g2.getImage(), GPanel.limx0 + p2.getCol() * nx,
-						GPanel.limy0 + p2.getLine() * ny - distancia, nx, ny,
-						null);
-
-				g2d.drawImage(g1.getImage(), GPanel.limx0 + p1.getCol() * nx,
-						GPanel.limy0 + p1.getLine() * ny + distancia, nx, ny,
-						null);
-
-			}
-
-		} else {
-
-			if (p1.getCol() > p2.getCol()) {
-				g2d.drawImage(g2.getImage(), GPanel.limx0 + p2.getCol() * nx
-						+ distancia, GPanel.limy0 + p2.getLine() * ny, nx, ny,
-						null);
-
-				g2d.drawImage(g1.getImage(), GPanel.limx0 + p1.getCol() * nx
-						- distancia, GPanel.limy0 + p1.getLine() * ny, nx, ny,
-						null);
-
-			} else {
-				g2d.drawImage(g2.getImage(), GPanel.limx0 + p2.getCol() * nx
-						- distancia, GPanel.limy0 + p2.getLine() * ny, nx, ny,
-						null);
-
-				g2d.drawImage(g1.getImage(), GPanel.limx0 + p1.getCol() * nx
-						+ distancia, GPanel.limy0 + p1.getLine() * ny, nx, ny,
-						null);
-
-			}
-
-		}
-
-	}
 
 	private void drawFill() {
 		GPanel.limx0 = GPanel.getWidth() * 240 / 800;
