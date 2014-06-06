@@ -166,12 +166,10 @@ public class Animation {
 				if (distancia == 60) {
 					
 					distancia = 0;
-					
-					
-					
-					//swap(tab[g1.getPos().getCol()][g1.getPos().getLine()],tab[g2.getPos().getCol()][g2.getPos().getLine()]);
+				
 					myTimer.stop();
-					GBoard.swap(g1, g2);
+					GBoard.MakePlay(g1,g2);
+					//GBoard.swap(g1, g2);
 					g1 = null;
 					g2 = null;
 					Type = AnimationType.None;
