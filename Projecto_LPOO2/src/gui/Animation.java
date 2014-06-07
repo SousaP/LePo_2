@@ -204,15 +204,15 @@ public class Animation {
 					distancia = 0;
 
 					myTimer.stop();
-					// GBoard.MakePlay(g1,g2);
-					GBoard.swap(g1, g2);
+					GBoard.MakePlay(g1,g2);
+				//	GBoard.swap(g1, g2);
 
 					// if jogada mal feita:
-					if (Type != AnimationType.SwapBack)
-						update(g2, g1, AnimationType.SwapBack);
-					// g1 = null;
-					// g2 = null;
-					// Type = AnimationType.None;
+				//	if (Type != AnimationType.SwapBack)
+				//		update(g2, g1, AnimationType.SwapBack);
+					 g1 = null;
+					 g2 = null;
+					 Type = AnimationType.None;
 					// GPanel.repaint();
 				}
 
