@@ -60,6 +60,7 @@ public class GamePanel extends JPanel {
 		if (!Inicio)
 			GBoard = new Board();
 
+		Score += GBoard.sweepTab();
 		GAnimation.g1 = null;
 		GAnimation.g2 = null;
 		Focus = null;

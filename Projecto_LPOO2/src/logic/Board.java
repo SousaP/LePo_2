@@ -363,7 +363,7 @@ public class Board {
 	 * @return número de peças destruidas
 	 * 
 	 */
-	int sweepTab() {
+	public int sweepTab() {
 		int t = 0;
 		for (int l = 0; l < tab.length; l++) {
 			t += deleteSequencesLine(l);

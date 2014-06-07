@@ -216,6 +216,8 @@ public class Animation {
 						
 						Type = AnimationType.None;
 						GBoard.swap(g2,g1);
+						g1 = null;
+						g2 = null;
 						}
 					
 					distancia = 0;
@@ -229,8 +231,7 @@ public class Animation {
 						update(g2, g1, AnimationType.SwapBack);
 					} else
 					{	playSound("resources/match.wav");
-					g1 = null;
-					g2 = null;
+					
 					}
 
 					
