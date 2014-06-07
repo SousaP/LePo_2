@@ -28,8 +28,8 @@ public class Board {
 	}
 
 	/**
-	 * Inicializa o tabuleiro de jogo, inserindo no mesmo gemas criadas de uma forma
-	 * aleatória
+	 * Inicializa o tabuleiro de jogo, inserindo no mesmo gemas criadas de uma
+	 * forma aleatória
 	 */
 	void creatTable() {
 		tab = new Gem[8][8];
@@ -74,9 +74,13 @@ public class Board {
 	/**
 	 * Verifica se a Gem g faz alguma combinação e retorna a sua direção
 	 * 
-	 * @param Gem g: peça a analisar
+	 * @param Gem
+	 *            g: peça a analisar
 	 * 
-	 * @return Top, Bottom, Left, Right para combinações para cima, para baixo, para a esquerda e para a direita respetivamente. Horizontal e Vertical para combinações nos sentidos referidos e coma peça g no centro
+	 * @return Top, Bottom, Left, Right para combinações para cima, para baixo,
+	 *         para a esquerda e para a direita respetivamente. Horizontal e
+	 *         Vertical para combinações nos sentidos referidos e coma peça g no
+	 *         centro
 	 * 
 	 */
 	Direction checkPlays(Gem g) {
@@ -119,37 +123,36 @@ public class Board {
 	/**
 	 * Processa a tentativa de troca entre duas peças
 	 * 
-	 * @param Gem g1, Gem g2: peças a trocar
+	 * @param Gem
+	 *            g1, Gem g2: peças a trocar
 	 * 
-	 * @return 0 se a combinação não é possivel, outro número correspondendo ao montante de peças combinadas se a jogada for valida
+	 * @return 0 se a combinação não é possivel, outro número correspondendo ao
+	 *         montante de peças combinadas se a jogada for valida
 	 * 
 	 */
 	public int MakePlay(Gem g1, Gem g2) {
-		if(g1 == null || g2 == null)
+		if (g1 == null || g2 == null)
 			return 0;
 		int points = 0;
 		swap(g1, g2);
 		char s1 = g1.symbol;
-		
+
 		char s2 = g2.symbol;
 		Vector<Cell> delete = new Vector<Cell>();
 
-		points += CheckLine(g1.getPos().line, g1.getPos().colune,delete);
+		points += CheckLine(g1.getPos().line, g1.getPos().colune, delete);
 
-		points += CheckCol(g1.getPos().line, g1.getPos().colune,delete);
+		points += CheckCol(g1.getPos().line, g1.getPos().colune, delete);
 
-		points += CheckLine(g2.getPos().line, g2.getPos().colune,delete);
+		points += CheckLine(g2.getPos().line, g2.getPos().colune, delete);
 
-		points += CheckCol(g2.getPos().line, g2.getPos().colune,delete);
+		points += CheckCol(g2.getPos().line, g2.getPos().colune, delete);
 
-		
 		Remove(delete);
-		
+
 		return points;
 	}
-	
-	
-	
+
 	/**
 	 * "Limpa" uma linha apagando todas as combinações na mesma
 	 * 
@@ -236,19 +239,19 @@ public class Board {
 		return t;
 	}
 
-
-
 	/**
 	 * Verifica se uma certa peça está envolvida em alguma combinação numa linha
 	 * 
 	 * @param int col, int line: coordenadas da peça a anlisar
-	 * @param Vector<Cell> d: contentor para retornar as peças a destruir
+	 * @param Vector
+	 *            <Cell> d: contentor para retornar as peças a destruir
 	 * 
-	 * @return 0 se a combinação não é possivel, outro número correspondendo ao montante de peças combinadas se existir combinação
+	 * @return 0 se a combinação não é possivel, outro número correspondendo ao
+	 *         montante de peças combinadas se existir combinação
 	 */
-	private int CheckLine(int line, int col,Vector<Cell> d) {
+	private int CheckLine(int line, int col, Vector<Cell> d) {
 		char symbol = tab[line][col].symbol;
-		
+
 		Vector<Cell> delete = new Vector<Cell>();
 		int cont = 0;
 		for (int i = 0; i < tab.length; i++) {
@@ -266,16 +269,15 @@ public class Board {
 				cont = 0;
 			}
 		}
-		
-		if(delete.size() > 2)
-		{
+
+		if (delete.size() > 2) {
 			d.addAll(delete);
 			return points(cont);
 		}
-		
+
 		return 0;
 	}
-	
+
 	/**
 	 * Calcula pontos de uma jogada
 	 * 
@@ -283,26 +285,29 @@ public class Board {
 	 * 
 	 * @return numero de pontos de uma jogada
 	 */
-	private int points(int combo){
-		if(combo == 3)
+	private int points(int combo) {
+		if (combo == 3)
 			return 10;
-		else if(combo == 4)
+		else if (combo == 4)
 			return 15;
-		else if(combo > 4)
+		else if (combo > 4)
 			return 20;
-		
+
 		return 0;
 	}
 
 	/**
-	 * Verifica se uma certa peça está envolvida em alguma combinação numa coluna
+	 * Verifica se uma certa peça está envolvida em alguma combinação numa
+	 * coluna
 	 * 
 	 * @param int col, int line: coordenadas da peça a anlisar
-	 * @param Vector<Cell> d: contentor para retornar as peças a destruir
+	 * @param Vector
+	 *            <Cell> d: contentor para retornar as peças a destruir
 	 * 
-	 * @return 0 se a combinação não é possivel, outro número correspondendo ao montante de peças combinadas se existir combinação
+	 * @return 0 se a combinação não é possivel, outro número correspondendo ao
+	 *         montante de peças combinadas se existir combinação
 	 */
-	private int CheckCol(int line, int col,Vector<Cell> d) {
+	private int CheckCol(int line, int col, Vector<Cell> d) {
 		char symbol = tab[line][col].symbol;
 		int cont = 0;
 		Vector<Cell> delete = new Vector<Cell>();
@@ -321,20 +326,19 @@ public class Board {
 			}
 		}
 
-		if(delete.size() > 2)
-		{
+		if (delete.size() > 2) {
 			d.addAll(delete);
 			return points(cont);
 		}
-		
-		
+
 		return 0;
 	}
 
 	/**
 	 * Destroi as peças passadas como parametro
 	 * 
-	 * @param Vector<Cell> d: peças a destruir
+	 * @param Vector
+	 *            <Cell> d: peças a destruir
 	 * 
 	 */
 	private void Remove(Vector<Cell> d) {
@@ -350,7 +354,8 @@ public class Board {
 	/**
 	 * Compara se duas peças têm o mesmo simbolo
 	 * 
-	 * @param peças a comparar
+	 * @param peças
+	 *            a comparar
 	 * 
 	 */
 	private boolean checkSameSymbol(Gem g1, Gem g2) {
@@ -399,7 +404,8 @@ public class Board {
 	/**
 	 * Troca todos os elementos de duas peças
 	 * 
-	 * @param peças a trocar de elementos
+	 * @param peças
+	 *            a trocar de elementos
 	 * 
 	 */
 	public void swap(Gem s1, Gem s2) {
@@ -420,7 +426,8 @@ public class Board {
 	/**
 	 * Troca a posição de duas peças
 	 * 
-	 * @param peças a trocar de posição
+	 * @param peças
+	 *            a trocar de posição
 	 * 
 	 */
 	public void swapD(Gem g1, Gem g2) {
@@ -428,31 +435,40 @@ public class Board {
 
 		g1.pos = g2.getPos();
 		g2.pos = c;
-		
+
 		SetPos(g1.getPos().getCol(), g1.getPos().getLine(), g1);
 		SetPos(g2.getPos().getCol(), g2.getPos().getLine(), g2);
 	}
 
-	Gem nullLine(int l, int col){
-		for(; col < tab.length; col++){
-			if(tab[l][col] != null)
-				return tab[l][col];
+	Gem nullLine(int l, int col) {
+		Gem ret = null;
+		for (; col >= 0; col--) {
+			if (tab[l][col] != null)
+				ret = tab[l][col];
 		}
-		return null;
+		return ret;
 	}
-	void pushNullUp(){
-		for(int i = (tab.length - 1); i >= 0; i--){
-			for(int j = 0; j < tab.length; i++){
-				while()
+
+	void pushNullUp() {
+		for (int i = (tab.length - 1); i >= 1; i--) {
+			for (int j = 0; j < tab.length; i++) {
+				if (tab[i][j] == null) {
+					if (nullLine(i, (j - 1)) != null) {
+						tab[i][j] = nullLine(i, (j + 1));
+						tab[i][j].pos = new Cell(i, j);
+					}
+				}
 			}
 		}
 	}
+
 	/**
 	 * Coloca uma peça numa posição do tabuleiro
 	 * 
 	 * @param int col, int lin: coordenadas do tabuleiro
 	 * 
-	 * @param Gem g: peça a colocar nas coordenadas passadas
+	 * @param Gem
+	 *            g: peça a colocar nas coordenadas passadas
 	 * 
 	 */
 	public void SetPos(int col, int lin, Gem g) {
