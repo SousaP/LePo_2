@@ -75,20 +75,21 @@ public class Animation {
 			return;
 		}
 
-		if (Type == AnimationType.None)
-			for (i = 0; i < tab.length; i++)
-				for (a = 0; a < tab.length; a++)
-					if (tab[i][a] != null)
-						g2d.drawImage(tab[i][a].getImage(), GPanel.limx0 + a
-								* nx, GPanel.limy0 + i * ny, nx, ny, null);
+		if(Type == AnimationType.None)
+		for (i = 0; i < tab.length; i++)
+			for (a = 0; a < tab.length; a++)
+				if (tab[i][a] != null)
+					g2d.drawImage(tab[i][a].getImage(), GPanel.limx0 + a * nx,
+							GPanel.limy0 + i * ny, nx, ny, null);
 
-		if (Type != AnimationType.None)
-			for (i = 0; i < tab.length; i++)
-				for (a = 0; a < tab.length; a++)
-					if (tab[i][a] != g1 && tab[i][a] != g2 && tab[i][a] != null)
-						g2d.drawImage(tab[i][a].getImage(), GPanel.limx0 + a
-								* nx, GPanel.limy0 + i * ny, nx, ny, null);
-
+		if(Type != AnimationType.None)
+		for (i = 0; i < tab.length; i++)
+			for (a = 0; a < tab.length; a++)
+				if (tab[i][a] != g1 && tab[i][a] != g2 && tab[i][a] != null)
+					g2d.drawImage(tab[i][a].getImage(), GPanel.limx0 + a * nx,
+							GPanel.limy0 + i * ny, nx, ny, null);
+		
+		
 		if (GPanel.Focus != null)
 			g2d.drawImage(Focuspng, GPanel.limx0
 					+ GPanel.Focus.getPos().getCol() * nx, GPanel.limy0
@@ -146,7 +147,6 @@ public class Animation {
 		if (g1 == null || g2 == null)
 			return;
 
-		
 		Cell p1 = g1.getPos();
 		Cell p2 = g2.getPos();
 
@@ -199,7 +199,8 @@ public class Animation {
 
 		}
 
-		
+		if (Type == AnimationType.SwapBack)
+			Type = AnimationType.None;
 
 	}
 
@@ -215,31 +216,23 @@ public class Animation {
 
 					distancia = 0;
 
-				
-
-					if (Type == AnimationType.Swap)
-						if ((GPanel.Score += GBoard.MakePlay(g1, g2)) == 0) {
-							GBoard.swap(g1, g2);
-							update(g2, g1, AnimationType.SwapBack);
-							
-						} else
-							{playSound("resources/match.wav");
-							Type = AnimationType.None;
-							}
-
-					if (Type == AnimationType.SwapBack)
-					{
-						Type = AnimationType.None;
-				//	System.out.printf("whaaaat");
-					}
 					myTimer.stop();
+
+					if ((GPanel.Score += GBoard.MakePlay(g1, g2)) == 0) {
+						GBoard.swap(g1, g2);
+						update(g2, g1, AnimationType.SwapBack);
+					}
+					else
+						playSound("resources/match.wav");
+
+					Type = AnimationType.None;
 					// GPanel.repaint();
 				}
 
 			}
 		};
 
-		myTimer = new Timer(1, myTimerListener);
+		myTimer = new Timer(0, myTimerListener);
 		myTimer.start();
 
 	}

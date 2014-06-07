@@ -6,18 +6,31 @@ import java.util.Vector;
 
 import logic.Gem.Direction;
 
+/**
+ * Classe Board, engloba todos os elementos do jogo
+ */
 public class Board {
 	Gem tab[][];
 	boolean end;
 
+	/**
+	 * Construtor da classe
+	 */
 	public Board() {
 		creatTable();
 	}
 
+	/**
+	 * Função que retorna o tabuleiro de jogo
+	 */
 	public Gem[][] getTab() {
 		return tab;
 	}
 
+	/**
+	 * Inicializa o tabuleiro de jogo, inserindo no mesmo gemas criadas de uma forma
+	 * aleatória
+	 */
 	void creatTable() {
 		tab = new Gem[8][8];
 		char symbols[] = { 'B', 'G', 'O', 'P', 'R', 'W', 'Y' };
@@ -33,6 +46,9 @@ public class Board {
 			}
 	}
 
+	/**
+	 * Função que procura a existência de algum espaço vazio no tabuleiro
+	 */
 	public boolean FreeSpace() {
 		for (int i = 0; i < tab.length; i++)
 			for (int a = 0; a < tab.length; a++)
@@ -41,6 +57,9 @@ public class Board {
 		return false;
 	}
 
+	/**
+	 * Verifica se existe alguma jogada possivel no jogo atual
+	 */
 	public boolean checkMoves() {
 
 		for (int i = 0; i < tab.length; i++)
@@ -52,6 +71,14 @@ public class Board {
 		return false;
 	}
 
+	/**
+	 * Verifica se a Gem g faz alguma combinação e retorna a sua direção
+	 * 
+	 * @param Gem g: peça a analisar
+	 * 
+	 * @return Top, Bottom, Left, Right para combinações para cima, para baixo, para a esquerda e para a direita respetivamente. Horizontal e Vertical para combinações nos sentidos referidos e coma peça g no centro
+	 * 
+	 */
 	Direction checkPlays(Gem g) {
 		int lin = g.getPos().getLine();
 		int col = g.getPos().getCol();
@@ -89,6 +116,47 @@ public class Board {
 			return Direction.None;
 	}
 
+	/**
+	 * Processa a tentativa de troca entre duas peças
+	 * 
+	 * @param Gem g1, Gem g2: peças a trocar
+	 * 
+	 * @return 0 se a combinação não é possivel, outro número correspondendo ao montante de peças combinadas se a jogada for valida
+	 * 
+	 */
+	public int MakePlay(Gem g1, Gem g2) {
+		if(g1 == null || g2 == null)
+			return 0;
+		int points = 0;
+		swap(g1, g2);
+		char s1 = g1.symbol;
+		
+		char s2 = g2.symbol;
+		Vector<Cell> delete = new Vector<Cell>();
+
+		points += CheckLine(g1.getPos().line, g1.getPos().colune,delete);
+
+		points += CheckCol(g1.getPos().line, g1.getPos().colune,delete);
+
+		points += CheckLine(g2.getPos().line, g2.getPos().colune,delete);
+
+		points += CheckCol(g2.getPos().line, g2.getPos().colune,delete);
+
+		
+		Remove(delete);
+		
+		return points;
+	}
+	
+	
+	
+	/**
+	 * "Limpa" uma linha apagando todas as combinações na mesma
+	 * 
+	 * @param int lin: indice da linha a analisar
+	 * 
+	 * @return número de peças da combinação apagada
+	 */
 	int deleteSequencesLine(int lin) {
 		int t = 0;
 		Vector<Cell> toBeDeleted = new Vector<Cell>();
@@ -124,6 +192,13 @@ public class Board {
 		return t;
 	}
 
+	/**
+	 * "Limpa" uma coluna apagando todas as combinações na mesma
+	 * 
+	 * @param int col: indice da coluna a analisar
+	 * 
+	 * @return número de peças da combinação apagada
+	 */
 	int deleteSequencesCol(int col) {
 		int t = 0;
 		Vector<Cell> toBeDeleted = new Vector<Cell>();
@@ -161,30 +236,16 @@ public class Board {
 		return t;
 	}
 
-	public int MakePlay(Gem g1, Gem g2) {
-		if(g1 == null || g2 == null)
-			return 0;
-		int points = 0;
-		swap(g1, g2);
-		char s1 = g1.symbol;
-		
-		char s2 = g2.symbol;
-		Vector<Cell> delete = new Vector<Cell>();
 
-		points += CheckLine(g1.getPos().line, g1.getPos().colune,delete);
 
-		points += CheckCol(g1.getPos().line, g1.getPos().colune,delete);
-
-		points += CheckLine(g2.getPos().line, g2.getPos().colune,delete);
-
-		points += CheckCol(g2.getPos().line, g2.getPos().colune,delete);
-
-		
-		Remove(delete);
-		
-		return points;
-	}
-
+	/**
+	 * Verifica se uma certa peça está envolvida em alguma combinação numa linha
+	 * 
+	 * @param int col, int line: coordenadas da peça a anlisar
+	 * @param Vector<Cell> d: contentor para retornar as peças a destruir
+	 * 
+	 * @return 0 se a combinação não é possivel, outro número correspondendo ao montante de peças combinadas se existir combinação
+	 */
 	private int CheckLine(int line, int col,Vector<Cell> d) {
 		char symbol = tab[line][col].symbol;
 		
@@ -215,6 +276,13 @@ public class Board {
 		return 0;
 	}
 	
+	/**
+	 * Calcula pontos de uma jogada
+	 * 
+	 * @param int combo: número de peças destruidas pela jogada
+	 * 
+	 * @return numero de pontos de uma jogada
+	 */
 	private int points(int combo){
 		if(combo == 3)
 			return 10;
@@ -226,6 +294,14 @@ public class Board {
 		return 0;
 	}
 
+	/**
+	 * Verifica se uma certa peça está envolvida em alguma combinação numa coluna
+	 * 
+	 * @param int col, int line: coordenadas da peça a anlisar
+	 * @param Vector<Cell> d: contentor para retornar as peças a destruir
+	 * 
+	 * @return 0 se a combinação não é possivel, outro número correspondendo ao montante de peças combinadas se existir combinação
+	 */
 	private int CheckCol(int line, int col,Vector<Cell> d) {
 		char symbol = tab[line][col].symbol;
 		int cont = 0;
@@ -255,6 +331,12 @@ public class Board {
 		return 0;
 	}
 
+	/**
+	 * Destroi as peças passadas como parametro
+	 * 
+	 * @param Vector<Cell> d: peças a destruir
+	 * 
+	 */
 	private void Remove(Vector<Cell> d) {
 
 		for (int i = 0; i < d.size(); i++) {
@@ -265,10 +347,22 @@ public class Board {
 
 	}
 
+	/**
+	 * Compara se duas peças têm o mesmo simbolo
+	 * 
+	 * @param peças a comparar
+	 * 
+	 */
 	private boolean checkSameSymbol(Gem g1, Gem g2) {
 		return g1.symbol == g2.symbol;
 	}
 
+	/**
+	 * Varre o tabuleiro limpando todas as combinações
+	 * 
+	 * @return número de peças destruidas
+	 * 
+	 */
 	int sweepTab() {
 		int t = 0;
 		for (int l = 0; l < tab.length; l++) {
@@ -280,6 +374,10 @@ public class Board {
 		return t;
 	}
 
+	/**
+	 * Preenche todas as casas vazias do tabuleiro
+	 * 
+	 */
 	void fillTab() {
 		boolean allfill = false;
 
@@ -298,6 +396,12 @@ public class Board {
 		}
 	}
 
+	/**
+	 * Troca todos os elementos de duas peças
+	 * 
+	 * @param peças a trocar de elementos
+	 * 
+	 */
 	public void swap(Gem s1, Gem s2) {
 		char c1 = s1.symbol, c2 = s2.symbol;
 		Image i1 = s1.GImage, i2 = s2.GImage;
@@ -313,14 +417,31 @@ public class Board {
 
 	}
 
+	/**
+	 * Troca a posição de duas peças
+	 * 
+	 * @param peças a trocar de posição
+	 * 
+	 */
 	public void swapD(Gem g1, Gem g2) {
 		Cell c = g1.getPos();
 
 		g1.pos = g2.getPos();
 		g2.pos = c;
+		
+		SetPos(g1.getPos().getCol(), g1.getPos().getLine(), g1);
+		SetPos(g2.getPos().getCol(), g2.getPos().getLine(), g2);
 	}
 
+	/**
+	 * Coloca uma peça numa posição do tabuleiro
+	 * 
+	 * @param int col, int lin: coordenadas do tabuleiro
+	 * 
+	 * @param Gem g: peça a colocar nas coordenadas passadas
+	 * 
+	 */
 	public void SetPos(int col, int lin, Gem g) {
-		tab[col][lin] = g;
+		tab[lin][col] = g;
 	}
 }
