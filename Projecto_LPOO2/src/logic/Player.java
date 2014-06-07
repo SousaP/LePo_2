@@ -14,7 +14,11 @@ public class Player {
 		this.name = nome;
 		score = 0;
 	}
-	
+	public Player(String nome, String gameMode, int score) {
+		this.gameMode = gameMode;
+		this.name = nome;
+		this.score = score;
+	}
 	public void updateScore(int s) {
 		this.score = this.score + s;
 	}
@@ -25,5 +29,9 @@ public class Player {
 	
 	public int getScore(){
 		return score;
+	}
+	
+	public String getMode(){
+		return gameMode;
 	}
 }

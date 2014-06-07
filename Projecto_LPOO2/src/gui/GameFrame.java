@@ -22,6 +22,8 @@ public class GameFrame extends JFrame {
 	private JButton GNewGame;
 	private JButton GTop10;
 	private JButton Gexit;
+	private JButton GTip;
+	private JButton OnOffSound;
 	
 	GameFrame() {
 		
@@ -48,6 +50,11 @@ public class GameFrame extends JFrame {
 				setLocationRelativeTo(null);
 				GPanel.updateBegin(false);
 				GPanel.requestFocus();
+				
+				if(GPanel.GTimer != null)
+					GPanel.GTimer.stop();
+				GPanel.Score = 0;
+				GPanel.IncTime();
 			}
 
 		});
@@ -59,6 +66,19 @@ public class GameFrame extends JFrame {
 
 			}
 		});
+		
+		OnOffSound = new JButton("Off/On Sound");
+		OnOffSound.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				if(GPanel.SoundOn)
+					GPanel.SoundOn = false;
+				else
+					GPanel.SoundOn = true;
+
+			}
+		});
+		
 
 
 		Gexit = new JButton("Quit");
@@ -80,13 +100,28 @@ public class GameFrame extends JFrame {
 			}
 		});
 
+		// GTip
+		
+		GTip = new JButton("Tip");
+		GTip.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 
+				
+			}
+		});
 
+	}
+	
+	public void AddTip(){
+		GTip.setBackground(Color.YELLOW);
+		GTip.setForeground(Color.BLACK);
+		GTip.setBounds(60 * GPanel.getWidth() / 800, 425 * getHeight() / 600,  70* GPanel.getWidth() / 800, 50 * GPanel.getWidth() / 600);
+	GPanel.add(GTip);
 	}
 	
 	public void addButtons() {
 
-		GButtons.setLayout(new GridLayout(1, 3));
+		GButtons.setLayout(new GridLayout(1, 4));
 		GButtons.add(GNewGame);
 		GNewGame.setBackground(Color.BLACK);
 		GNewGame.setForeground(Color.GRAY);
@@ -94,12 +129,17 @@ public class GameFrame extends JFrame {
 		GButtons.add(GTop10);
 		GTop10.setBackground(Color.BLACK);
 		GTop10.setForeground(Color.GRAY);
+		
+		GButtons.add(OnOffSound);
+		OnOffSound.setBackground(Color.BLACK);
+		OnOffSound.setForeground(Color.GRAY);
 
 
 		GButtons.add(Gexit);
 		Gexit.setBackground(Color.BLACK);
 		Gexit.setForeground(Color.GRAY);
-
+		
+		
 
 
 		getContentPane().add(GButtons, BorderLayout.SOUTH);

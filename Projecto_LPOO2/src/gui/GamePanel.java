@@ -2,13 +2,7 @@ package gui;
 
 import gui.Animation.AnimationType;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.*;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,6 +15,8 @@ import javax.swing.Timer;
 import logic.*;
 import logic.Gem.Direction;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -28,13 +24,17 @@ public class GamePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	boolean Inicio;
 	private Image Intro;
+	GameFrame GFrame;
 	Animation GAnimation;
 	Board GBoard;
 	Rank GTop;
 	Gem Focus;
 	JLabel JScore;
-	int Score;
-	
+	int Score = 0;
+	int Time = 0;
+	Timer GTimer;
+	boolean SoundOn;
+
 	// Limites do board
 	int limx0;
 	int limxf;
@@ -42,6 +42,10 @@ public class GamePanel extends JPanel {
 	int limyf;
 
 	public GamePanel(GameFrame gameFrame) {
+		SoundOn = true;
+		GFrame = gameFrame;
+		JScore = new JLabel("");
+		setLayout(null);
 		Inicio = true;
 		GAnimation = new Animation(this);
 		GTop = new Rank();
@@ -55,7 +59,7 @@ public class GamePanel extends JPanel {
 		Inicio = I;
 		if (!Inicio)
 			GBoard = new Board();
-		
+
 		GAnimation.g1 = null;
 		GAnimation.g2 = null;
 		Focus = null;
@@ -69,9 +73,12 @@ public class GamePanel extends JPanel {
 		GAnimation.graphics2d = g2d;
 		if (Inicio)
 			g2d.drawImage(Intro, 0, 0, getWidth(), getHeight(), null);
-		else
+		else {
 			GAnimation.DrawBoard(g2d);
-
+			DrawScore();
+			GFrame.AddTip();
+		}
+		
 		// System.out.printf("aqui");
 	}
 
@@ -103,27 +110,29 @@ public class GamePanel extends JPanel {
 				if (!(e.getX() > limx0 && e.getX() < limxf && e.getY() > limy0 && e
 						.getY() < limyf))
 					return;
-
+				
+				GAnimation.playSound("resources/select.wav");
+				
 				if (Focus == null) {
-					Focus = GBoard.getTab()[col][lin];
+					Focus = GBoard.getTab()[lin][col];
 					repaint();
 					return;
 				}
-				
-				if(Focus.getPos().getCol() == col &&
-						Focus.getPos().getLine() == lin)
+
+				if (Focus.getPos().getCol() == col
+						&& Focus.getPos().getLine() == lin)
 					return;
 
 				if (Math.abs(Focus.getPos().getCol() - col) < 2
 						&& Math.abs(Focus.getPos().getLine() - lin) == 0
 						|| Math.abs(Focus.getPos().getCol() - col) == 0
 						&& Math.abs(Focus.getPos().getLine() - lin) < 2)
-					GAnimation.update(Focus, GBoard.getTab()[col][lin],
+					GAnimation.update(Focus, GBoard.getTab()[lin][col],
 							AnimationType.Swap);
 				else
-					Focus = GBoard.getTab()[col][lin];
-				
-				Focus = GBoard.getTab()[col][lin];
+					Focus = GBoard.getTab()[lin][col];
+
+				Focus = GBoard.getTab()[lin][col];
 				repaint();
 			}
 
@@ -144,6 +153,34 @@ public class GamePanel extends JPanel {
 			}
 		});
 
+	}
+
+	private void DrawScore() {
+		//  <html>Score:<br>1000</html>
+		JScore.setText("<html>Score: <br>" + Score + "<br>Time:<br>"+ Time + "</html>");
+		JScore.setSize(200, 300);
+		JScore.setForeground(Color.YELLOW);
+		JScore.setFont(new Font("", Font.PLAIN, 50 * getHeight() / 600));
+		JScore.setLocation(39 * getWidth() / 800, 50 * getHeight() / 600);
+		add(JScore);
+	}
+	
+	public void IncTime(){
+		ActionListener myTimerListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+					Time++;
+					JScore.setText("<html>Score:<br>" + Score + "<br>Time:<br>"+ Time + "</html>");
+				}
+
+			
+		};
+		
+		Time = 0;
+		GTimer = new Timer(1000, myTimerListener);
+		GTimer.start();
+		
 	}
 
 }

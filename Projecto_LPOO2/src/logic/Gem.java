@@ -11,7 +11,7 @@ public class Gem {
 	Cell pos;
 	char symbols[] = { 'B', 'G', 'O', 'P', 'R', 'W', 'Y' };
 
-	Gem(char s, int c, int l) {
+	Gem(char s, int l, int c) {
 		symbol = s;
 		pos = new Cell(l, c);
 		GImage = Image();
@@ -38,7 +38,7 @@ public class Gem {
 		Left, Right, Top, Bottom, Vertical, Horizontal, None
 	}
 	
-	char getSymbol() {
+	public char getSymbol() {
 		return symbol;
 	}
 
