@@ -23,6 +23,7 @@ public class GameFrame extends JFrame {
 	private JButton GTop10;
 	private JButton Gexit;
 	private JButton GTip;
+	private JButton OnOffSound;
 	
 	GameFrame() {
 		
@@ -65,6 +66,19 @@ public class GameFrame extends JFrame {
 
 			}
 		});
+		
+		OnOffSound = new JButton("Off/On Sound");
+		OnOffSound.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				if(GPanel.SoundOn)
+					GPanel.SoundOn = false;
+				else
+					GPanel.SoundOn = true;
+
+			}
+		});
+		
 
 
 		Gexit = new JButton("Quit");
@@ -107,7 +121,7 @@ public class GameFrame extends JFrame {
 	
 	public void addButtons() {
 
-		GButtons.setLayout(new GridLayout(1, 3));
+		GButtons.setLayout(new GridLayout(1, 4));
 		GButtons.add(GNewGame);
 		GNewGame.setBackground(Color.BLACK);
 		GNewGame.setForeground(Color.GRAY);
@@ -115,6 +129,10 @@ public class GameFrame extends JFrame {
 		GButtons.add(GTop10);
 		GTop10.setBackground(Color.BLACK);
 		GTop10.setForeground(Color.GRAY);
+		
+		GButtons.add(OnOffSound);
+		OnOffSound.setBackground(Color.BLACK);
+		OnOffSound.setForeground(Color.GRAY);
 
 
 		GButtons.add(Gexit);

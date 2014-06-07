@@ -33,6 +33,7 @@ public class GamePanel extends JPanel {
 	int Score = 0;
 	int Time = 0;
 	Timer GTimer;
+	boolean SoundOn;
 
 	// Limites do board
 	int limx0;
@@ -41,6 +42,7 @@ public class GamePanel extends JPanel {
 	int limyf;
 
 	public GamePanel(GameFrame gameFrame) {
+		SoundOn = true;
 		GFrame = gameFrame;
 		JScore = new JLabel("");
 		setLayout(null);
@@ -107,7 +109,9 @@ public class GamePanel extends JPanel {
 				if (!(e.getX() > limx0 && e.getX() < limxf && e.getY() > limy0 && e
 						.getY() < limyf))
 					return;
-
+				
+				GAnimation.playSound("resources/select.wav");
+				
 				if (Focus == null) {
 					Focus = GBoard.getTab()[col][lin];
 					repaint();
@@ -166,7 +170,7 @@ public class GamePanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				
 					Time++;
-					JScore.setText("<html>Score: <br>" + Score + "<br>Time<br>"+ Time + "</html>");
+					JScore.setText("<html>Score:<br>" + Score + "<br>Time:<br>"+ Time + "</html>");
 				}
 
 			

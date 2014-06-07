@@ -1,5 +1,7 @@
 package gui;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -22,10 +24,13 @@ public class Animation {
 	Image Boardpng;
 	Image Focuspng;
 	Timer myTimer;
+	private AudioClip song;
 	int distancia = 0;
 	// Largura Gem
 	int nx;
 	int ny;
+	
+
 
 	public Animation(GamePanel GP) {
 
@@ -224,7 +229,17 @@ public class Animation {
 
 	}
 
-	
+	public void playSound(final String file) {
+		// "/resources/musica.wav"
+		if(!GPanel.SoundOn)
+			return;
+		
+		try {
+			song = Applet.newAudioClip(this.getClass().getResource(file));
+		} catch (Exception e) {
+		}
+		song.play();
+	}
 
 	public enum AnimationType {
 		Swap, SwapBack, Fill, Explosion, None
