@@ -22,6 +22,7 @@ public class GameFrame extends JFrame {
 	private JButton GNewGame;
 	private JButton GTop10;
 	private JButton Gexit;
+	private JButton GTip;
 	
 	GameFrame() {
 		
@@ -48,6 +49,11 @@ public class GameFrame extends JFrame {
 				setLocationRelativeTo(null);
 				GPanel.updateBegin(false);
 				GPanel.requestFocus();
+				
+				if(GPanel.GTimer != null)
+					GPanel.GTimer.stop();
+				
+				GPanel.IncTime();
 			}
 
 		});
@@ -80,8 +86,23 @@ public class GameFrame extends JFrame {
 			}
 		});
 
+		// GTip
+		
+		GTip = new JButton("Tip");
+		GTip.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 
+				
+			}
+		});
 
+	}
+	
+	public void AddTip(){
+		GTip.setBackground(Color.YELLOW);
+		GTip.setForeground(Color.BLACK);
+		GTip.setBounds(60 * GPanel.getWidth() / 800, 425 * getHeight() / 600,  70* GPanel.getWidth() / 800, 50 * GPanel.getWidth() / 600);
+	GPanel.add(GTip);
 	}
 	
 	public void addButtons() {
@@ -99,7 +120,8 @@ public class GameFrame extends JFrame {
 		GButtons.add(Gexit);
 		Gexit.setBackground(Color.BLACK);
 		Gexit.setForeground(Color.GRAY);
-
+		
+		
 
 
 		getContentPane().add(GButtons, BorderLayout.SOUTH);

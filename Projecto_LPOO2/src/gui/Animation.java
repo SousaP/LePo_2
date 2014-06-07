@@ -219,42 +219,12 @@ public class Animation {
 
 	}
 
-	private void drawFill() {
-		GPanel.limx0 = GPanel.getWidth() * 240 / 800;
-		GPanel.limy0 = GPanel.getHeight() * 40 / 600;
-
-		nx = (GPanel.getWidth() * 66 / 800);
-		ny = (GPanel.getHeight() * 66 / 600);
-
-		Image temp = null;
-		Gem[][] tab = GBoard.getTab();
-		int i;
-		int a;
-
-		int time = 0;
-
-		while (time < 60) {
-
-		}
-
-	}
 
 	private void drawExplosion() {
 
 	}
 
-	private void drawSymbol(Graphics2D g2d, int col, int lin) {
-		int x0 = GPanel.getWidth() * 240 / 800;
-		int y0 = GPanel.getHeight() * 40 / 600;
-
-		int nx = (GPanel.getWidth() * 66 / 800);
-		int ny = (GPanel.getHeight() * 66 / 600);
-
-		Image temp = GBoard.getTab()[col][lin].getImage();
-
-		g2d.drawImage(temp, x0 + lin * nx, y0 + col * ny, nx, ny, null);
-
-	}
+	
 
 	public enum AnimationType {
 		Swap, SwapBack, Fill, Explosion, None

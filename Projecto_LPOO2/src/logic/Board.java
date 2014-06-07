@@ -328,4 +328,8 @@ public class Board {
 				}
 
 	}
+	
+	public void SetPos(int col, int lin, Gem g){
+		tab[col][lin] = g;
+	}
 }
