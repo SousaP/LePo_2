@@ -427,6 +427,20 @@ public class Board {
 		SetPos(g2.getPos().getCol(), g2.getPos().getLine(), g2);
 	}
 
+	Gem nullLine(int l, int col){
+		for(; col < tab.length; col++){
+			if(tab[l][col] != null)
+				return tab[l][col];
+		}
+		return null;
+	}
+	void pushNullUp(){
+		for(int i = (tab.length - 1); i >= 0; i--){
+			for(int j = 0; j < tab.length; i++){
+				while()
+			}
+		}
+	}
 	/**
 	 * Coloca uma peça numa posição do tabuleiro
 	 * 
