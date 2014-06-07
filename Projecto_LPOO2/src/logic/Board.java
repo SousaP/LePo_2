@@ -125,6 +125,8 @@ public class Board {
 	 * 
 	 */
 	public int MakePlay(Gem g1, Gem g2) {
+		if(g1 == null || g2 == null)
+			return 0;
 		int points = 0;
 		swap(g1, g2);
 		char s1 = g1.symbol;
@@ -145,6 +147,8 @@ public class Board {
 		
 		return points;
 	}
+	
+	
 	
 	/**
 	 * "Limpa" uma linha apagando todas as combinações na mesma
@@ -231,6 +235,8 @@ public class Board {
 		toBeDeleted.clear();
 		return t;
 	}
+
+
 
 	/**
 	 * Verifica se uma certa peça está envolvida em alguma combinação numa linha
@@ -357,7 +363,7 @@ public class Board {
 	 * @return número de peças destruidas
 	 * 
 	 */
-	int sweepTab() {
+	public int sweepTab() {
 		int t = 0;
 		for (int l = 0; l < tab.length; l++) {
 			t += deleteSequencesLine(l);
