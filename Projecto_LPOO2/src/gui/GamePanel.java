@@ -78,6 +78,7 @@ public class GamePanel extends JPanel {
 			DrawScore();
 			GFrame.AddTip();
 		}
+		
 		// System.out.printf("aqui");
 	}
 
@@ -113,7 +114,7 @@ public class GamePanel extends JPanel {
 				GAnimation.playSound("resources/select.wav");
 				
 				if (Focus == null) {
-					Focus = GBoard.getTab()[col][lin];
+					Focus = GBoard.getTab()[lin][col];
 					repaint();
 					return;
 				}
@@ -126,12 +127,12 @@ public class GamePanel extends JPanel {
 						&& Math.abs(Focus.getPos().getLine() - lin) == 0
 						|| Math.abs(Focus.getPos().getCol() - col) == 0
 						&& Math.abs(Focus.getPos().getLine() - lin) < 2)
-					GAnimation.update(Focus, GBoard.getTab()[col][lin],
+					GAnimation.update(Focus, GBoard.getTab()[lin][col],
 							AnimationType.Swap);
 				else
-					Focus = GBoard.getTab()[col][lin];
+					Focus = GBoard.getTab()[lin][col];
 
-				Focus = GBoard.getTab()[col][lin];
+				Focus = GBoard.getTab()[lin][col];
 				repaint();
 			}
 

@@ -53,7 +53,7 @@ public class GameFrame extends JFrame {
 				
 				if(GPanel.GTimer != null)
 					GPanel.GTimer.stop();
-				
+				GPanel.Score = 0;
 				GPanel.IncTime();
 			}
 
