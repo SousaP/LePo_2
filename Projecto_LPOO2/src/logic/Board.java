@@ -162,6 +162,8 @@ public class Board {
 	}
 
 	public int MakePlay(Gem g1, Gem g2) {
+		if(g1 == null || g2 == null)
+			return 0;
 		int points = 0;
 		swap(g1, g2);
 		char s1 = g1.symbol;
