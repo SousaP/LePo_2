@@ -5,15 +5,11 @@ import gui.Animation.AnimationType;
 import java.awt.*;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import logic.*;
-import logic.Gem.Direction;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -205,6 +201,8 @@ public class GamePanel extends JPanel {
 				Time++;
 				JScore.setText("<html>Score:<br>" + Score + "<br>Time:<br>"
 						+ Time + "</html>");
+				
+				
 			}
 
 		};

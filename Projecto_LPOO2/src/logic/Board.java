@@ -441,16 +441,6 @@ public class Board {
 
 	}
 
-	/**
-	 * Compara se duas peças têm o mesmo simbolo
-	 * 
-	 * @param peças
-	 *            a comparar
-	 * 
-	 */
-	private boolean checkSameSymbol(Gem g1, Gem g2) {
-		return g1.symbol == g2.symbol;
-	}
 
 	/**
 	 * Varre o tabuleiro limpando todas as combinações

@@ -2,13 +2,13 @@ package gui;
 
 import gui.Animation.AnimationType;
 
-import java.applet.Applet;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.applet.AudioClip;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -30,7 +30,7 @@ public class GameFrame extends JFrame {
 	private JButton Gexit;
 	private JButton GTip;
 	private JButton OnOffSound;
-	private JRank Rank10;
+	 JRank Rank10;
 	
 	GameFrame() {
 		
@@ -44,9 +44,10 @@ public class GameFrame extends JFrame {
 		setVisible(true);
 		pack();
 		
-		Rank10 = new JRank(this,GPanel);
+		Rank10 = new JRank(GPanel);
 		setSize(800, 450);
 		setLocationRelativeTo(null);
+		WhenClosed();
 		
 	}
 	
@@ -78,7 +79,7 @@ public class GameFrame extends JFrame {
 		GTop10 = new JButton("Top10");
 		GTop10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				Rank10.setVisible(true);
 
 			}
 		});
@@ -185,5 +186,23 @@ public class GameFrame extends JFrame {
 		getContentPane().add(GPanel, BorderLayout.CENTER);
 		pack();
 
+	}
+	
+	/**
+	 * Quando fecha o jogo, guarda o Rank
+	 */
+	private void WhenClosed(){
+		addWindowListener(new WindowAdapter() 
+		{
+		  public void windowClosed(WindowEvent e)
+		  {
+		   //
+		  }
+
+		  public void windowClosing(WindowEvent e)
+		  {
+			  Rank10.Save();
+		  }
+		});
 	}
 }

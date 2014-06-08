@@ -12,7 +12,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.nio.file.Files;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -24,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import logic.Player;
 import logic.Rank;
 
 /**
@@ -33,10 +33,10 @@ import logic.Rank;
 public class JRank extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private GamePanel GPanel;
-	private GameFrame GFrame;
 	private JTextField txtSave;
 	JButton Save;
 	Rank Top;
+	Player AddP;
 
 	private static final String SaveFolder = System.getProperty("user.dir")
 			+ "/Top/";
@@ -47,24 +47,25 @@ public class JRank extends JDialog {
 	 * @param GP
 	 *            : Panel do jogo Contrutor
 	 */
-	public JRank(GameFrame GF, GamePanel GP) {
-		setSize(300, 200);
-		setTitle("Save");
-		GFrame = GF;
+	public JRank(GamePanel GP) {
+		setTitle("Top10");
 		GPanel = GP;
-		
 		Top = GPanel.GTop;
+		Load();
 		getContentPane().setLayout(new GridLayout(2, 1, 0, 0));
-		setLocationRelativeTo(null);
+
 		ButtonsActions();
-		setVisible(true);
-		
+		setVisible(false);
+
 		try {
 			PrintRank();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		addSave();
+		setSize(300, 200);
+		setLocationRelativeTo(null);
 	}
 
 	/**
@@ -77,7 +78,18 @@ public class JRank extends JDialog {
 		Save.setForeground(Color.GRAY);
 		Save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				
+				if (txtSave.getText().length() == 0) {
+					JOptionPane.showMessageDialog(null,
+							"Write a name to Save the game");
+					return;
+				}
+				
+				if(!GPanel.Inicio){
+				AddP = new Player(txtSave.getText(), "Time", GPanel.Score);
+				GPanel.GTop.updateRank(AddP);
+				
+				}
 			}
 		});
 	}
@@ -105,11 +117,7 @@ public class JRank extends JDialog {
 	 */
 	public void Save() {
 		try {
-			if (txtSave.getText().length() == 0) {
-				JOptionPane.showMessageDialog(null,
-						"Write a name to Save the game");
-				return;
-			}
+			
 
 			File savesFolder = new File(SaveFolder);
 			if (!savesFolder.exists())
@@ -141,12 +149,14 @@ public class JRank extends JDialog {
 			FileInputStream fin = new FileInputStream(SaveFolder + "Top10");
 			ObjectInputStream ois = new ObjectInputStream(fin);
 			Top = (Rank) ois.readObject();
+			GPanel.GTop = Top;
 			ois.close();
 
 			setVisible(false);
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Erro ao fazer Load");
+			GPanel.GTop = new Rank();
+			//ex.printStackTrace();
+			//JOptionPane.showMessageDialog(null, "Erro ao fazer Load");
 		}
 
 	}
@@ -182,7 +192,7 @@ public class JRank extends JDialog {
 		scrollRecords
 				.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-		add(labelRecords, BorderLayout.NORTH);
+	//	add(labelRecords, BorderLayout.NORTH);
 		add(scrollRecords, BorderLayout.SOUTH);
 	}
 }

@@ -1,17 +1,9 @@
 package logic;
 
 import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 
 
 public class Rank {
@@ -36,7 +28,7 @@ public class Rank {
 		return Rank;
 	}
 
-	void updateRank(Player P) {
+	public void updateRank(Player P) {
 		if (P.getScore() > Rank.get(9).getScore()) {
 			Rank.add(9, P);
 		}

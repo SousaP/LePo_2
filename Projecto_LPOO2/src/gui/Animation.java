@@ -16,7 +16,7 @@ import logic.Gem;
 
 /**
  * Class que trata das animaçoes, sons e draw do jogo
- *
+ * 
  */
 public class Animation {
 	AnimationType Type;
@@ -36,7 +36,8 @@ public class Animation {
 	int ny;
 
 	/**
-	 * @param GP - Recebe o GamePanel onde desenha
+	 * @param GP
+	 *            - Recebe o GamePanel onde desenha
 	 */
 	public Animation(GamePanel GP) {
 
@@ -52,8 +53,11 @@ public class Animation {
 
 	/**
 	 * Altera a forma de desenhar com o Typo de animaçao
-	 * @param g1 null se nao for swap/irrelevante
-	 * @param g2 null se nao for swap/irrelevante
+	 * 
+	 * @param g1
+	 *            null se nao for swap/irrelevante
+	 * @param g2
+	 *            null se nao for swap/irrelevante
 	 * @param Type
 	 */
 	void update(Gem g1, Gem g2, AnimationType Type) {
@@ -69,12 +73,12 @@ public class Animation {
 	}
 
 	/**
-	 * @param g2d - recebido pelo Panel
-	 * desenha o board
+	 * @param g2d
+	 *            - recebido pelo Panel desenha o board
 	 */
 	public void DrawBoard(Graphics2D g2d) {
 		GBoard = GPanel.GBoard;
-		
+
 		Gem[][] tab = GBoard.getTab();
 
 		GPanel.limx0 = GPanel.getWidth() * 240 / 800;
@@ -126,13 +130,13 @@ public class Animation {
 
 	/**
 	 * 
-	 * @param g2d - Recebe do DrawBoard em caso de a animaçao ser
-	 * de preenchimento do board
+	 * @param g2d
+	 *            - Recebe do DrawBoard em caso de a animaçao ser de
+	 *            preenchimento do board
 	 */
 	private void GemFalling(Graphics2D g2d) {
 		if (!GBoard.FreeSpace())
 			return;
-		Gem temp;
 		int col;
 		int lin;
 		Gem[][] tab = GBoard.getTab();
@@ -182,7 +186,9 @@ public class Animation {
 	/**
 	 * 
 	 * Animaçao de troca de peças
-	 * @param g2d - recebido pelo DrawBoard
+	 * 
+	 * @param g2d
+	 *            - recebido pelo DrawBoard
 	 */
 	private void GemSwap(Graphics2D g2d) {
 
@@ -263,18 +269,23 @@ public class Animation {
 					myTimer.stop();
 					GPanel.Focus = null;
 					if (Type == AnimationType.Fill && distancia == 60) {
-						
+
 						playSound("resources/fall.wav");
-						newpoints  = GBoard.sweepTab();
+						newpoints = GBoard.sweepTab();
 						GPanel.Score += newpoints;
-						if(newpoints == 0)			
-						Type = AnimationType.None;
-						else
-							{distancia = 0;
-							update(null, null, AnimationType.Fill);
+						if (newpoints == 0) {
+							Type = AnimationType.None;
+							if (GBoard.Tip() == null) {
+								GPanel.GTimer.stop();
+								GPanel.GFrame.Rank10.setVisible(true);
 							}
+						} else {
+							distancia = 0;
+							update(null, null, AnimationType.Fill);
+						}
 						g1 = null;
 						g2 = null;
+
 					}
 
 					else if (Type == AnimationType.SwapBack && distancia == 60) {
@@ -293,15 +304,15 @@ public class Animation {
 							update(g2, g1, AnimationType.SwapBack);
 						} else {
 							GPanel.Score += newpoints;
-							
+
 							update(g2, g1, AnimationType.Fill);
 							playSound("resources/match.wav");
 							g1 = null;
 							g2 = null;
-							
+
 						}
 					}
-				//	
+					//
 					GPanel.repaint();
 				}
 
@@ -315,7 +326,9 @@ public class Animation {
 
 	/**
 	 * Reproduz um som ou musica
-	 * @param file - nome e pasta do ficheiro
+	 * 
+	 * @param file
+	 *            - nome e pasta do ficheiro
 	 */
 	public void playSound(final String file) {
 		// "resources/musica.wav"

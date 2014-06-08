@@ -1,7 +1,5 @@
 package logic;
 
-import java.util.Random;
-
 
 /**
  * Class utilizada no Top10
