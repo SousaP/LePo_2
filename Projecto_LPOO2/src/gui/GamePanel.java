@@ -57,13 +57,14 @@ public class GamePanel extends JPanel {
 
 	public void updateBegin(boolean I) {
 		Inicio = I;
-		if (!Inicio)
+		if (!Inicio) {
 			GBoard = new Board();
 
-	//	Score += GBoard.sweepTab();
-		GAnimation.g1 = null;
-		GAnimation.g2 = null;
-		Focus = null;
+			
+			GAnimation.g1 = null;
+			GAnimation.g2 = null;
+			Focus = null;
+		}
 		repaint();
 	}
 
@@ -75,11 +76,12 @@ public class GamePanel extends JPanel {
 		if (Inicio)
 			g2d.drawImage(Intro, 0, 0, getWidth(), getHeight(), null);
 		else {
+			Score += GBoard.sweepTab();
 			GAnimation.DrawBoard(g2d);
 			DrawScore();
 			GFrame.AddTip();
 		}
-		
+
 		// System.out.printf("aqui");
 	}
 
@@ -111,9 +113,9 @@ public class GamePanel extends JPanel {
 				if (!(e.getX() > limx0 && e.getX() < limxf && e.getY() > limy0 && e
 						.getY() < limyf))
 					return;
-				
+
 				GAnimation.playSound("resources/select.wav");
-				
+
 				if (Focus == null) {
 					Focus = GBoard.getTab()[lin][col];
 					repaint();
@@ -157,31 +159,32 @@ public class GamePanel extends JPanel {
 	}
 
 	private void DrawScore() {
-		//  <html>Score:<br>1000</html>
-		JScore.setText("<html><br>Score: <br>" + Score + "<br>Time:<br>"+ Time + "</html>");
+		// <html>Score:<br>1000</html>
+		JScore.setText("<html><br>Score: <br>" + Score + "<br>Time:<br>" + Time
+				+ "</html>");
 		JScore.setSize(200, 300);
 		JScore.setForeground(Color.YELLOW);
 		JScore.setFont(new Font("", Font.PLAIN, 50 * getHeight() / 600));
 		JScore.setLocation(39 * getWidth() / 800, 50 * getHeight() / 600);
-		
+
 	}
-	
-	public void IncTime(){
+
+	public void IncTime() {
 		ActionListener myTimerListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
-					Time++;
-					JScore.setText("<html>Score:<br>" + Score + "<br>Time:<br>"+ Time + "</html>");
-				}
 
-			
+				Time++;
+				JScore.setText("<html>Score:<br>" + Score + "<br>Time:<br>"
+						+ Time + "</html>");
+			}
+
 		};
-		
+
 		Time = 0;
 		GTimer = new Timer(1000, myTimerListener);
 		GTimer.start();
-		
+
 	}
 
 }

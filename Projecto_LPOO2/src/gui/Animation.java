@@ -57,6 +57,7 @@ public class Animation {
 
 	public void DrawBoard(Graphics2D g2d) {
 		GBoard = GPanel.GBoard;
+		
 		Gem[][] tab = GBoard.getTab();
 
 		GPanel.limx0 = GPanel.getWidth() * 240 / 800;

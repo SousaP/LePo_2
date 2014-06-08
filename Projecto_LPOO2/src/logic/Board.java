@@ -135,9 +135,6 @@ public class Board {
 			return 0;
 		int points = 0;
 		swap(g1, g2);
-		char s1 = g1.symbol;
-
-		char s2 = g2.symbol;
 		Vector<Cell> delete = new Vector<Cell>();
 
 		points += CheckLine(g1.getPos().line, g1.getPos().colune, delete);
@@ -150,9 +147,6 @@ public class Board {
 
 		Remove(delete);
 
-		// pushNullUp();
-		// fillTab2();
-
 		return points;
 	}
 
@@ -164,61 +158,47 @@ public class Board {
 	 * @return número de peças da combinação apagada
 	 */
 	int deleteSequencesLine(int lin) {
-		char symbol = ' ';
 
+		char symbol = ' ';
+		int p = 0;
 		Vector<Cell> delete = new Vector<Cell>();
-		Vector<Cell> d = new Vector<Cell>();
-		int cont = 0, total = 0;
+
+
 		for (int i = 0; i < tab.length; i++) {
 			if (tab[lin][i] == null) {
-				if (cont > 2) {
-					d.addAll(delete);
+				symbol = ' ';
+				if (delete.size() > 2) {
+					p += points(delete.size());
+					Remove(delete);
 					delete.removeAllElements();
-					total += cont;
-					cont = 0;
-					symbol = ' ';
-				} else if (cont >= 0) {
+				} else {
 					delete.removeAllElements();
-					cont = 0;
-					symbol = ' ';
 				}
-				break;
-			}
-			if (symbol == ' ')
-				symbol = tab[lin][i].symbol;
 
-			if (tab[lin][i].symbol == symbol) {
-				cont++;
+			}
+
+			else if (tab[lin][i].getSymbol() != symbol) {
+				if (delete.size() > 2) {
+					p += points(delete.size());
+					Remove(delete);
+					delete.removeAllElements();
+				} else {
+					delete.removeAllElements();
+				}
 				delete.add(tab[lin][i].pos);
-			}
-
-			else if (cont > 2) {
-				d.addAll(delete);
-				delete.removeAllElements();
-				total += cont;
-				cont = 0;
-				symbol = ' ';
-				i--;
-			} else if (cont > 0) {
-				delete.removeAllElements();
-				cont = 0;
-				symbol = ' ';
-				i--;
-			} else if (cont > 0) {
-				delete.removeAllElements();
-				cont = 0;
+				symbol = tab[lin][i].symbol;
+			} else if (tab[lin][i].symbol == symbol) {
+				delete.add(tab[lin][i].pos);
 			}
 		}
 
 		if (delete.size() > 2) {
-			total += cont;
-			d.addAll(delete);
-			Remove(d);
-			return points(total);
-		} else {
-			Remove(d);
-			return points(total);
+			p += points(delete.size());
+			Remove(delete);
+			return p;
 		}
+
+		return p;
 	}
 
 	/**
@@ -230,55 +210,44 @@ public class Board {
 	 */
 	int deleteSequencesCol(int col) {
 		char symbol = ' ';
+		int p = 0;
 		Vector<Cell> delete = new Vector<Cell>();
-		Vector<Cell> d = new Vector<Cell>();
-		int cont = 0, total = 0;
+
 		for (int i = 0; i < tab.length; i++) {
 			if (tab[i][col] == null) {
-				if (cont > 2) {
-					d.addAll(delete);
+				symbol = ' ';
+				if (delete.size() > 2) {
+					p += points(delete.size());
+					Remove(delete);
 					delete.removeAllElements();
-					total += cont;
-					cont = 0;
-					symbol = ' ';
-				} else if (cont >= 0) {
+				} else {
 					delete.removeAllElements();
-					cont = 0;
-					symbol = ' ';
 				}
-				break;
 			}
-			if (symbol == ' ')
-				symbol = tab[i][col].symbol;
 
-			if (tab[i][col].symbol == symbol) {
-				cont++;
+			else if (tab[i][col].getSymbol() != symbol) {
+				if (delete.size() > 2) {
+					p += points(delete.size());
+					Remove(delete);
+					delete.removeAllElements();
+				} else {
+					delete.removeAllElements();
+				}
 				delete.add(tab[i][col].pos);
-			}
+				symbol = tab[i][col].symbol;
+			} else if (tab[i][col].symbol == symbol) {
+				delete.add(tab[i][col].pos);
 
-			else if (cont > 2) {
-				d.addAll(delete);
-				delete.removeAllElements();
-				total += cont;
-				cont = 0;
-				symbol = ' ';
-				i--;
-			} else if (cont > 0) {
-				delete.removeAllElements();
-				cont = 0;
-				symbol = ' ';
-				i--;
 			}
 		}
 
 		if (delete.size() > 2) {
-			d.addAll(delete);
-			Remove(d);
-			return points(total);
-		} else {
-			Remove(d);
-			return points(total);
+			p += points(delete.size());
+			Remove(delete);
+			return p;
 		}
+
+		return p;
 	}
 
 	/**
@@ -531,7 +500,7 @@ public class Board {
 		if (g == null)
 			tab[lin][col] = g;
 		else {
-			tab[lin][col] = new Gem(g.symbol,lin,col);
+			tab[lin][col] = new Gem(g.symbol, lin, col);
 
 		}
 	}
