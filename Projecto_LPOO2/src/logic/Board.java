@@ -498,7 +498,7 @@ public class Board {
 
 	void pushNullUp() {
 		for (int i = (tab.length - 1); i > 0; i--) {
-			for (int j = 0; j < tab.length; i++) {
+			for (int j = 0; j < tab.length; j++) {
 				if (tab[i][j] == null) {
 					if (nullLine(i, (j - 1)) != null) {
 						tab[i][j] = nullLine(i, (j - 1));
@@ -511,7 +511,7 @@ public class Board {
 
 	void fillTab2() {
 		for (int i = (tab.length - 1); i >= 1; i--) {
-			for (int j = 0; j < tab.length; i++) {
+			for (int j = 0; j < tab.length; j++) {
 				if (tab[i][j] == null) {
 					tab[i][j] = new Gem(i, j);
 				}
