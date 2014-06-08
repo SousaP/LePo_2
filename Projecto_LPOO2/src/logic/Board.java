@@ -19,6 +19,16 @@ public class Board {
 	public Board() {
 		creatTable();
 	}
+	
+	public Board(char c[][]){
+		tab = new Gem[8][8];
+		for (int i = 0; i < tab.length; i++)
+			for (int a = 0; a < tab.length; a++) {
+				tab[i][a] = new Gem(c[i][a], i, a);
+			}
+	}
+	
+	
 
 	/**
 	 * Função que retorna o tabuleiro de jogo
@@ -117,12 +127,21 @@ public class Board {
 				&& (tab[lin][col + 2]).getSymbol() == comp
 				&& (tab[lin][col + 3]).getSymbol() == comp)
 			return Direction.Right;
-		// check meio horizontal
-		else if (col + 1 < tab.length && col - 1 >= 0
-				&& (tab[lin][col + 1]).getSymbol() == comp
-				&& (tab[lin][col - 1]).getSymbol() == comp)
+		
+		// check quadrado
+		else if (col + 1 < tab.length
+				&& col - 1 >= 0
+				&& lin + 1 < tab.length
+				&& lin - 1 >= 0
+				&& ((tab[lin + 1][col + 1]).getSymbol() == comp
+						&& (tab[lin + 1][col - 1]).getSymbol() == comp || (tab[lin - 1][col + 1])
+						.getSymbol() == comp
+						&& (tab[lin - 1][col - 1]).getSymbol() == comp
+
+				))
+
 			return Direction.Horizontal;
-		// check meio vertical
+		
 		else if (lin + 1 < tab.length && lin - 1 >= 0
 				&& (tab[lin + 1][col]).getSymbol() == comp
 				&& (tab[lin - 1][col]).getSymbol() == comp)
@@ -153,8 +172,8 @@ public class Board {
 		}
 		// cima direita
 		else if (lin - 1 >= 0 && col + 2 < tab.length
-				&& (tab[lin - 1][col+1]).getSymbol() == comp
-				&& (tab[lin - 1][col+2]).getSymbol() == comp)
+				&& (tab[lin - 1][col + 1]).getSymbol() == comp
+				&& (tab[lin - 1][col + 2]).getSymbol() == comp)
 			return Direction.Vertical;
 		// cima esquerda
 		else if (lin - 1 >= 0 && col - 2 >= 0) {
@@ -164,7 +183,7 @@ public class Board {
 		}
 		// baixo direita
 		else if (lin + 1 < tab.length && col + 2 < tab.length
-				&& (tab[lin + 1][col +1]).getSymbol() == comp
+				&& (tab[lin + 1][col + 1]).getSymbol() == comp
 				&& (tab[lin + 1][col + 2]).getSymbol() == comp)
 			return Direction.Vertical;
 		// baixo esquerda

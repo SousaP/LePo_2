@@ -276,7 +276,7 @@ public class Animation {
 			}
 		};
 
-		myTimer = new Timer(1, myTimerListener);
+		myTimer = new Timer(0, myTimerListener);
 		myTimer.start();
 
 	}
