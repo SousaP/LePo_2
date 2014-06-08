@@ -47,15 +47,24 @@ public class JRank extends JDialog {
 	 * @param GP
 	 *            : Panel do jogo Contrutor
 	 */
-	JRank(GameFrame GF, GamePanel GP) {
+	public JRank(GameFrame GF, GamePanel GP) {
 		setSize(300, 200);
 		setTitle("Save");
 		GFrame = GF;
 		GPanel = GP;
-
+		
+		Top = GPanel.GTop;
 		getContentPane().setLayout(new GridLayout(2, 1, 0, 0));
 		setLocationRelativeTo(null);
 		ButtonsActions();
+		setVisible(true);
+		
+		try {
+			PrintRank();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -140,5 +149,40 @@ public class JRank extends JDialog {
 			JOptionPane.showMessageDialog(null, "Erro ao fazer Load");
 		}
 
+	}
+
+	public void PrintRank() throws IOException {
+
+		JList<String> listRecords = new JList<String>();
+		DefaultListModel<String> model = new DefaultListModel<String>();
+		JLabel labelRecords = new JLabel("Top Ten");
+
+		labelRecords.setFont(new Font("Dialog", Font.PLAIN, 30));
+		labelRecords.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+		// Shows the current high scores
+		try {
+			String line = null;
+			for (int i = 0; i < Top.getRank().size(); i++) {
+				if (Top.getRank().get(i).getName() == null)
+					break;
+				else {
+					line = Top.getRank().get(i).getName() + "  "
+							+ Top.getRank().get(i).getMode() + "  "
+							+ Top.getRank().get(i).getScore() + "\n";
+					model.addElement(line);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		listRecords.setModel(model);
+		JScrollPane scrollRecords = new JScrollPane(listRecords);
+		scrollRecords
+				.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+		add(labelRecords, BorderLayout.NORTH);
+		add(scrollRecords, BorderLayout.SOUTH);
 	}
 }

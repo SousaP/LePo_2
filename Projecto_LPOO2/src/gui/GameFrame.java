@@ -30,6 +30,7 @@ public class GameFrame extends JFrame {
 	private JButton Gexit;
 	private JButton GTip;
 	private JButton OnOffSound;
+	private JRank Rank10;
 	
 	GameFrame() {
 		
@@ -42,11 +43,14 @@ public class GameFrame extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		pack();
+		
+		Rank10 = new JRank(this,GPanel);
 		setSize(800, 450);
 		setLocationRelativeTo(null);
 		
 	}
 	
+
 	/**
 	 * Adiciona acçoes aos botoes do jogo
 	 */
