@@ -204,14 +204,18 @@ public class Board {
 				cont = 0;
 				symbol = ' ';
 				i--;
+			} else if (cont > 0) {
+				delete.removeAllElements();
+				cont = 0;
 			}
 		}
 
 		if (delete.size() > 2) {
+			total += cont;
 			d.addAll(delete);
 			Remove(d);
 			return points(total);
-		} else {
+		}else{
 			Remove(d);
 			return points(total);
 		}
@@ -226,7 +230,6 @@ public class Board {
 	 */
 	int deleteSequencesCol(int col) {
 		char symbol = ' ';
-
 		Vector<Cell> delete = new Vector<Cell>();
 		Vector<Cell> d = new Vector<Cell>();
 		int cont = 0, total = 0;
@@ -273,7 +276,6 @@ public class Board {
 			Remove(d);
 			return points(total);
 		}
-
 		else {
 			Remove(d);
 			return points(total);
@@ -310,6 +312,7 @@ public class Board {
 			} else if (cont > 0) {
 				delete.removeAllElements();
 				cont = 0;
+				i--;
 			}
 		}
 
@@ -367,6 +370,7 @@ public class Board {
 			} else if (cont > 0) {
 				delete.removeAllElements();
 				cont = 0;
+				i--;
 			}
 		}
 

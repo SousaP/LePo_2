@@ -48,12 +48,13 @@ public class GameFrame extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				setSize(800, 600);
 				setLocationRelativeTo(null);
+				GPanel.Score = 0;
 				GPanel.updateBegin(false);
 				GPanel.requestFocus();
 				
 				if(GPanel.GTimer != null)
 					GPanel.GTimer.stop();
-				GPanel.Score = 0;
+				
 				GPanel.IncTime();
 			}
 
