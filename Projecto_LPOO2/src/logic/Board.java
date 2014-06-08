@@ -10,7 +10,6 @@ import logic.Gem.Direction;
  * Classe Board, engloba todos os elementos do jogo
  */
 public class Board {
-	private static final long serialVersionUID = 1L;
 	Gem tab[][];
 	boolean end;
 

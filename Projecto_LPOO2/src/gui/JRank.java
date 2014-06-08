@@ -130,7 +130,7 @@ public class JRank extends JDialog {
 
 				file.writeObject(GPanel.GTop);
 				file.close();
-				JOptionPane.showMessageDialog(null, "Game successfully saved.");
+				JOptionPane.showMessageDialog(null, "Top10 successfully saved.");
 				setVisible(false);
 			} catch (IOException e) {
 				e.printStackTrace();

@@ -11,7 +11,6 @@ import javax.swing.ImageIcon;
  *
  */
 public class Gem {
-	private static final long serialVersionUID = 1L;
 	Image GImage;
 	char symbol;
 	Cell pos;

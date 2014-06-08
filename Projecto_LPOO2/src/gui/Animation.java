@@ -19,7 +19,6 @@ import logic.Gem;
  * 
  */
 public class Animation {
-	private static final long serialVersionUID = 1L;
 	AnimationType Type;
 	GamePanel GPanel;
 	Board GBoard;
