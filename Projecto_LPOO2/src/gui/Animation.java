@@ -26,6 +26,7 @@ public class Animation {
 	Timer myTimer;
 	private AudioClip song;
 	int distancia = 0;
+	int newpoints = 0;
 	// Largura Gem
 	int nx;
 	int ny;
@@ -226,7 +227,7 @@ public class Animation {
 			public void actionPerformed(ActionEvent arg0) {
 				// Type = AnimationType.None;
 
-				int newpoints = 0;
+				newpoints = 0;
 				GPanel.repaint();
 
 				distancia++;

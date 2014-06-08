@@ -163,7 +163,7 @@ public class GamePanel extends JPanel {
 		JScore.setForeground(Color.YELLOW);
 		JScore.setFont(new Font("", Font.PLAIN, 50 * getHeight() / 600));
 		JScore.setLocation(39 * getWidth() / 800, 50 * getHeight() / 600);
-		add(JScore);
+		
 	}
 	
 	public void IncTime(){

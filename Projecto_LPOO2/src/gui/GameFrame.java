@@ -56,6 +56,8 @@ public class GameFrame extends JFrame {
 					GPanel.GTimer.stop();
 				
 				GPanel.IncTime();
+				GPanel.add(GPanel.JScore);
+				GPanel.add(GTip);
 			}
 
 		});
@@ -117,7 +119,7 @@ public class GameFrame extends JFrame {
 		GTip.setBackground(Color.YELLOW);
 		GTip.setForeground(Color.BLACK);
 		GTip.setBounds(60 * GPanel.getWidth() / 800, 425 * getHeight() / 600,  70* GPanel.getWidth() / 800, 50 * GPanel.getWidth() / 600);
-	GPanel.add(GTip);
+	
 	}
 	
 	public void addButtons() {
