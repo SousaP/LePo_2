@@ -198,7 +198,6 @@ public class Animation {
 
 		}
 
-
 	}
 
 	private void BoardAction() {
@@ -211,32 +210,29 @@ public class Animation {
 				distancia++;
 				if (distancia == 60) {
 
-					if(Type == AnimationType.SwapBack && distancia == 60)
-						{
-						
+					if (Type == AnimationType.SwapBack && distancia == 60) {
+
 						Type = AnimationType.None;
-						GBoard.swap(g2,g1);
+						GBoard.swap(g2, g1);
 						g1 = null;
 						g2 = null;
-						}
-					
+					}
+
 					distancia = 0;
 
 					myTimer.stop();
 
+					if (Type == AnimationType.Swap)
+						if ((GPanel.Score += GBoard.MakePlay(g1, g2)) == 0) {
+							// GBoard.swap(g2,g1);
+							update(g2, g1, AnimationType.SwapBack);
+						} else {
+							playSound("resources/match.wav");
+							g1 = null;
+							g2 = null;
+						}
 
-					if(Type == AnimationType.Swap)
-					if ((GPanel.Score += GBoard.MakePlay(g1, g2)) == 0) {
-					//	GBoard.swap(g2,g1);
-						update(g2, g1, AnimationType.SwapBack);
-					} else
-					{	playSound("resources/match.wav");
-					
-					}
-
-					
-					
-					 GPanel.repaint();
+					GPanel.repaint();
 				}
 
 			}

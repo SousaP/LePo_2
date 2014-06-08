@@ -161,38 +161,39 @@ public class Board {
 	 * @return número de peças da combinação apagada
 	 */
 	int deleteSequencesLine(int lin) {
-		int t = 0;
-		Vector<Cell> toBeDeleted = new Vector<Cell>();
-		char s;
+		char symbol = ' ';
 
-		for (int i = 0; i <= (tab.length - 3);) {
-			s = tab[lin][i].getSymbol();
-			if (tab[lin][i].getSymbol() == tab[lin][i + 1].getSymbol()
-					&& tab[lin][i].getSymbol() == tab[lin][i + 2].getSymbol()) {
-				toBeDeleted.add(new Cell(lin, i));
-				toBeDeleted.add(new Cell(lin, i + 1));
-				toBeDeleted.add(new Cell(lin, i + 2));
-				if (!(i + 3 < tab.length)) {
-					break;
-				}
-				i += 3;
-				while (tab[lin][i].getSymbol() == s) {
-					toBeDeleted.add(new Cell(lin, i));
-					i++;
-					if (!(i < tab.length)) {
-						break;
-					}
-				}
-			} else
-				i++;
+		Vector<Cell> delete = new Vector<Cell>();
+		Vector<Cell> d = new Vector<Cell>();
+		int cont = 0, total = 0;
+		for (int i = 0; i < tab.length; i++) {
+			if(tab[lin][i] == null)
+				break;
+			if (delete.size() == 0)
+				symbol = tab[lin][i].symbol;
+
+			if (tab[lin][i].symbol == symbol) {
+				cont++;
+				delete.add(tab[lin][i].pos);
+			}
+
+			else if (cont > 2) {
+				d.addAll(delete);
+				total += cont;
+			} else if (cont > 0) {
+				delete.removeAllElements();
+				cont = 0;
+			}
 		}
 
-		for (int j = 0; j < toBeDeleted.size(); j++) {
-			tab[(toBeDeleted.get(j)).getLine()][(toBeDeleted.get(j)).getCol()] = null;
+		if (delete.size() > 2) {
+			d.addAll(delete);
+			Remove(d);
+			return points(total);
+		}else{
+			Remove(d);
+			return points(total);
 		}
-		t += toBeDeleted.size();
-		toBeDeleted.clear();
-		return t;
 	}
 
 	/**
@@ -203,40 +204,42 @@ public class Board {
 	 * @return número de peças da combinação apagada
 	 */
 	int deleteSequencesCol(int col) {
-		int t = 0;
-		Vector<Cell> toBeDeleted = new Vector<Cell>();
-		char s;
+		char symbol = ' ';
 
-		for (int i = 0; i <= (tab.length - 3);) {
-			s = tab[i][col].getSymbol();
-			if (tab[i][col].getSymbol() == tab[i + 1][col].getSymbol()
-					&& tab[i][col].getSymbol() == tab[i + 2][col].getSymbol()) {
-				toBeDeleted.add(new Cell(i, col));
-				toBeDeleted.add(new Cell(i + 1, col));
-				toBeDeleted.add(new Cell(i + 2, col));
-				if (!(i + 3 < tab.length)) {
-					break;
-				}
+		Vector<Cell> delete = new Vector<Cell>();
+		Vector<Cell> d = new Vector<Cell>();
+		int cont = 0, total = 0;
+		for (int i = 0; i < tab.length; i++) {
+			if(tab[i][col] == null)
+				break;
+			
+			if (delete.size() == 0)
+				symbol = tab[i][col].symbol;
 
-				i += 3;
+			if (tab[i][col].symbol == symbol) {
+				cont++;
+				delete.add(tab[i][col].pos);
+			}
 
-				while (tab[i][col].getSymbol() == s) {
-					toBeDeleted.add(new Cell(i, col));
-					i++;
-					if (!(i < tab.length)) {
-						break;
-					}
-				}
-			} else
-				i++;
+			else if (cont > 2) {
+				d.addAll(delete);
+				total += cont;
+			} else if (cont > 0) {
+				delete.removeAllElements();
+				cont = 0;
+			}
 		}
 
-		for (int i = 0; i < toBeDeleted.size(); i++) {
-			tab[(toBeDeleted.get(i)).getLine()][(toBeDeleted.get(i)).getCol()] = null;
+		if (delete.size() > 2) {
+			d.addAll(delete);
+			Remove(d);
+			return points(total);
 		}
-		t = toBeDeleted.size();
-		toBeDeleted.clear();
-		return t;
+		
+		else {
+			Remove(d);
+			return points(total);
+		}
 	}
 
 	/**
