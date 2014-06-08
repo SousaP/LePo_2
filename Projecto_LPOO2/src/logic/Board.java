@@ -149,9 +149,9 @@ public class Board {
 		points += CheckCol(g2.getPos().line, g2.getPos().colune, delete);
 
 		Remove(delete);
-		
-		pushNullUp();
-		fillTab2();
+
+		// pushNullUp();
+		// fillTab2();
 
 		return points;
 	}
@@ -170,7 +170,7 @@ public class Board {
 		Vector<Cell> d = new Vector<Cell>();
 		int cont = 0, total = 0;
 		for (int i = 0; i < tab.length; i++) {
-			if (tab[lin][i] == null){
+			if (tab[lin][i] == null) {
 				if (cont > 2) {
 					d.addAll(delete);
 					delete.removeAllElements();
@@ -215,7 +215,7 @@ public class Board {
 			d.addAll(delete);
 			Remove(d);
 			return points(total);
-		}else{
+		} else {
 			Remove(d);
 			return points(total);
 		}
@@ -234,7 +234,7 @@ public class Board {
 		Vector<Cell> d = new Vector<Cell>();
 		int cont = 0, total = 0;
 		for (int i = 0; i < tab.length; i++) {
-			if (tab[i][col] == null){
+			if (tab[i][col] == null) {
 				if (cont > 2) {
 					d.addAll(delete);
 					delete.removeAllElements();
@@ -275,8 +275,7 @@ public class Board {
 			d.addAll(delete);
 			Remove(d);
 			return points(total);
-		}
-		else {
+		} else {
 			Remove(d);
 			return points(total);
 		}
@@ -529,6 +528,11 @@ public class Board {
 	 * 
 	 */
 	public void SetPos(int lin, int col, Gem g) {
-		tab[lin][col] = g;
+		if (g == null)
+			tab[lin][col] = g;
+		else {
+			tab[lin][col] = new Gem(g.symbol,lin,col);
+
+		}
 	}
 }
