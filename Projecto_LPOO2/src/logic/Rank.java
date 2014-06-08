@@ -6,8 +6,8 @@ import java.util.Comparator;
 import java.util.List;
 
 
-public class Rank {
-
+public class Rank implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
 	private static Comparator<Player> COMPARATOR = new Comparator<Player>() {
 		// This is where the sorting happens.
 		public int compare(Player p1, Player p2) {

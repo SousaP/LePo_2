@@ -6,7 +6,6 @@ import java.io.Serializable;
  * Classe que representa as células do tabuleiro
  */
 public class Cell implements Serializable{
-	
 	private static final long serialVersionUID = 1L;
 	int line, colune;
 

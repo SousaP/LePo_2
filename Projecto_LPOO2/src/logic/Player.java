@@ -5,8 +5,8 @@ package logic;
  * Class utilizada no Top10
  *
  */
-public class Player {
-	
+public class Player implements java.io.Serializable{
+	private static final long serialVersionUID = 1L;
 	String name;
 	int score;
 	String gameMode;
