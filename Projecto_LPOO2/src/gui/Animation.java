@@ -107,7 +107,7 @@ public class Animation {
 	}
 
 	private void GemFalling(Graphics2D g2d) {
-		if(!GBoard.FreeSpace())
+		if (!GBoard.FreeSpace())
 			return;
 		Gem temp;
 		int col;
@@ -117,53 +117,47 @@ public class Animation {
 		for (int i = 0; i < vazios.length; i++)
 			vazios[i] = 0;
 
-		
-		
 		for (lin = tab.length - 1; lin >= 0; lin--)
-			for (col = tab.length - 1; col >= 0; col--)
-			{
-				if(lin == 0 && tab[lin][col] == null)
-					GBoard.SetPos(lin, col, new Gem(lin,col));
-				
-				if(distancia != 59 && vazios[col] > 0 && tab[lin][col] != null)
-					g2d.drawImage(tab[lin][col].getImage(), GPanel.limx0 + col * nx,
-							GPanel.limy0 + lin * ny + distancia, nx, ny,
+			for (col = tab.length - 1; col >= 0; col--) {
+				if (lin == 0 && tab[lin][col] == null)
+					GBoard.SetPos(lin, col, new Gem(lin, col));
+
+				else if (distancia != 59 && vazios[col] > 0
+						&& tab[lin][col] != null)
+					g2d.drawImage(tab[lin][col].getImage(), GPanel.limx0 + col
+							* nx, GPanel.limy0 + lin * ny + distancia, nx, ny,
 							null);
-		
-				if(tab[lin][col] != null && vazios[col] == 0)
-					g2d.drawImage(tab[lin][col].getImage(), GPanel.limx0 + col * nx,
-							GPanel.limy0 + lin * ny, nx, ny,
-							null);
-				
-				if(distancia == 59 && vazios[col] > 0 && tab[lin][col] == null)
-					{
-					
-					GBoard.SetPos(lin, col, tab[lin-1][col]);
-					GBoard.SetPos(lin-1, col, null);
-					}
-				
-				if(distancia == 59  && tab[lin][col] == null){
-					GBoard.SetPos(lin, col, tab[lin-1][col]);
-					GBoard.SetPos(lin-1, col, null);
-					
+
+				else if (tab[lin][col] != null && vazios[col] == 0)
+					g2d.drawImage(tab[lin][col].getImage(), GPanel.limx0 + col
+							* nx, GPanel.limy0 + lin * ny, nx, ny, null);
+
+				else if (distancia == 59 && vazios[col] > 0
+						&& tab[lin][col] == null) {
+
+					GBoard.SetPos(lin, col, tab[lin - 1][col]);
+					GBoard.SetPos(lin - 1, col, null);
 				}
-			
-				if(tab[lin][col] == null)
-					vazios[col]++;	
-			
-			
-			if(lin == 0 && col == 0)
-				if (distancia == 59 && GBoard.FreeSpace())
-					distancia = 0;
-				
-			
+
+				else if (distancia == 59 && tab[lin][col] == null) {
+					GBoard.SetPos(lin, col, tab[lin - 1][col]);
+					GBoard.SetPos(lin - 1, col, null);
+
+				}
+
+				else if (tab[lin][col] == null)
+					vazios[col]++;
+
+				if (lin == 0 && col == 0)
+					if (distancia == 59 && GBoard.FreeSpace())
+						distancia = 0;
+
 			}
 
-		
 	}
 
 	private void GemSwap(Graphics2D g2d) {
-		
+
 		if (g1 == null || g2 == null)
 			return;
 
@@ -231,7 +225,7 @@ public class Animation {
 				GPanel.repaint();
 
 				distancia++;
-				
+
 				if (distancia == 60) {
 
 					if (Type == AnimationType.Fill && distancia == 60) {
@@ -241,7 +235,7 @@ public class Animation {
 						g2 = null;
 					}
 
-					if (Type == AnimationType.SwapBack && distancia == 60) {
+					else if (Type == AnimationType.SwapBack && distancia == 60) {
 
 						Type = AnimationType.None;
 						GBoard.swap(g2, g1);

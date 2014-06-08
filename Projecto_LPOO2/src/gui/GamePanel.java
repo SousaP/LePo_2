@@ -158,7 +158,7 @@ public class GamePanel extends JPanel {
 
 	private void DrawScore() {
 		//  <html>Score:<br>1000</html>
-		JScore.setText("<html>Score: <br>" + Score + "<br>Time:<br>"+ Time + "</html>");
+		JScore.setText("<html><br>Score: <br>" + Score + "<br>Time:<br>"+ Time + "</html>");
 		JScore.setSize(200, 300);
 		JScore.setForeground(Color.YELLOW);
 		JScore.setFont(new Font("", Font.PLAIN, 50 * getHeight() / 600));

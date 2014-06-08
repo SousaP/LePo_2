@@ -89,14 +89,25 @@ public class GameFrame extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				Icon icon = UIManager.getIcon("OptionPane.questionIcon");
-				String[] buttons = { "Continue", "Menu",
+				String[] buttons = { "Menu",
 						"Exit", "Cancel" };
 				int choice = JOptionPane
 						.showOptionDialog(null, "Are you sure you want to quit?",
 								"Start Game", JOptionPane.PLAIN_MESSAGE, 0,
 								icon, buttons, buttons[0]);
-				if (choice == 0) 
+				if (choice == 2) 
 					return;
+				else if(choice == 0){
+					GPanel.GTimer.stop();
+					GPanel.remove(GPanel.JScore);
+					GPanel.remove(GTip);
+					GPanel.Inicio = true;
+					setSize(800, 450);
+					setLocationRelativeTo(null);
+				}
+				else if(choice == 1){
+					System.exit(0);
+				}
 
 
 				GPanel.requestFocus();
