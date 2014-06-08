@@ -228,10 +228,19 @@ public class Animation {
 				distancia++;
 
 				if (distancia == 60) {
-
+					myTimer.stop();
+					GPanel.Focus = null;
 					if (Type == AnimationType.Fill && distancia == 60) {
+						
 						playSound("resources/fall.wav");
+						newpoints  = GBoard.sweepTab();
+						GPanel.Score += newpoints;
+						if(newpoints == 0)			
 						Type = AnimationType.None;
+						else
+							{distancia = 0;
+							update(null, null, AnimationType.Fill);
+							}
 						g1 = null;
 						g2 = null;
 					}
@@ -245,9 +254,6 @@ public class Animation {
 					}
 
 					distancia = 0;
-
-					myTimer.stop();
-
 					if (Type == AnimationType.Swap) {
 
 						if ((newpoints = GBoard.MakePlay(g1, g2)) == 0) {
@@ -255,13 +261,15 @@ public class Animation {
 							update(g2, g1, AnimationType.SwapBack);
 						} else {
 							GPanel.Score += newpoints;
+							
+							update(g2, g1, AnimationType.Fill);
 							playSound("resources/match.wav");
 							g1 = null;
 							g2 = null;
-							update(g2, g1, AnimationType.Fill);
+							
 						}
 					}
-					GPanel.Focus = null;
+				//	
 					GPanel.repaint();
 				}
 

@@ -59,12 +59,15 @@ public class GamePanel extends JPanel {
 		Inicio = I;
 		if (!Inicio) {
 			GBoard = new Board();
-
+			Score += GBoard.sweepTab();
 			
 			GAnimation.g1 = null;
 			GAnimation.g2 = null;
 			Focus = null;
 		}
+		if(Score > 0)
+			GAnimation.update(null, null, AnimationType.Fill);
+		else
 		repaint();
 	}
 
@@ -76,7 +79,7 @@ public class GamePanel extends JPanel {
 		if (Inicio)
 			g2d.drawImage(Intro, 0, 0, getWidth(), getHeight(), null);
 		else {
-			Score += GBoard.sweepTab();
+			
 			GAnimation.DrawBoard(g2d);
 			DrawScore();
 			GFrame.AddTip();
