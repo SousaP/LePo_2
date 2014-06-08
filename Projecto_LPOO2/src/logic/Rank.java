@@ -5,7 +5,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-
+/**
+ * Classe que o ranking dos melhores joadores
+ * 
+ */
 public class Rank implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private static Comparator<Player> COMPARATOR = new Comparator<Player>() {

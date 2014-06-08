@@ -159,6 +159,9 @@ public class JRank extends JDialog {
 
 	}
 
+	/**
+	 * Printing do top 10
+	 */
 	public void PrintRank() throws IOException {
 
 		JList<String> listRecords = new JList<String>();
