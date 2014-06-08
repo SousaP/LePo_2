@@ -106,29 +106,32 @@ public class Animation {
 	}
 
 	private void GemFalling(Graphics2D g2d) {
+		if(!GBoard.FreeSpace())
+			return;
 		int col;
 		int lin;
 		Gem[][] tab = GBoard.getTab();
-
 		int[] vazios = new int[tab.length];
 		for (int i = 0; i < vazios.length; i++)
 			vazios[i] = 0;
 
+		
+		
 		for (lin = tab.length - 1; lin >= 0; lin--)
 			for (col = tab.length - 1; col >= 0; col--)
 				if (distancia == 59) {
 					if (vazios[col] > 0) {
 
 						if (col == 0)
-							GBoard.SetPos(col, lin, new Gem(col, lin));
+							GBoard.SetPos(lin, col, new Gem(lin, col));
 
 						else {
 							g2d.drawImage(g2.getImage(), GPanel.limx0 + col
 									* nx, GPanel.limy0 + lin * ny + distancia,
 									nx, ny, null);
 
-							GBoard.SetPos(col + 1, lin, tab[col][lin]);
-							GBoard.SetPos(col, lin, null);
+							GBoard.SetPos(lin,col +1, tab[lin][col]);
+							GBoard.SetPos(lin, col, null);
 						}
 					}
 				} else if (vazios[col] == 0)
@@ -205,10 +208,16 @@ public class Animation {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// Type = AnimationType.None;
-
+				
+				int newpoints =0;
 				GPanel.repaint();
 				distancia++;
 				if (distancia == 60) {
+					
+					
+					if(Type == AnimationType.Fill && distancia == 60){
+						Type = AnimationType.None;
+					}
 
 					if (Type == AnimationType.SwapBack && distancia == 60) {
 
@@ -222,16 +231,18 @@ public class Animation {
 
 					myTimer.stop();
 
-					if (Type == AnimationType.Swap)
-						if ((GPanel.Score += GBoard.MakePlay(g1, g2)) == 0) {
-							// GBoard.swap(g2,g1);
+					if (Type == AnimationType.Swap){
+						
+						if ((newpoints = GBoard.MakePlay(g1, g2)) == 0) {
+							
 							update(g2, g1, AnimationType.SwapBack);
 						} else {
+							GPanel.Score += newpoints;
 							playSound("resources/match.wav");
 							g1 = null;
 							g2 = null;
 						}
-
+					}
 					GPanel.repaint();
 				}
 
@@ -260,7 +271,7 @@ public class Animation {
 	}
 
 	public enum AnimationType {
-		Swap, SwapBack, Fill, Explosion, None
+		Swap, SwapBack, Fill, None
 	}
 
 }

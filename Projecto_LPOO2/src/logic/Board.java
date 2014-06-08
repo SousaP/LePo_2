@@ -528,7 +528,7 @@ public class Board {
 	 *            g: peça a colocar nas coordenadas passadas
 	 * 
 	 */
-	public void SetPos(int col, int lin, Gem g) {
+	public void SetPos(int lin, int col, Gem g) {
 		tab[lin][col] = g;
 	}
 }
