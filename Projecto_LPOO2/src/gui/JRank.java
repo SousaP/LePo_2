@@ -87,6 +87,8 @@ public class JRank extends JDialog {
 				AddP = new Player(txtSave.getText(), "Time", GPanel.Score);
 				GPanel.GTop.updateRank(AddP);
 				}
+				else
+					JOptionPane.showMessageDialog(null, "No Game Active.");
 			}
 		});
 	}
@@ -127,7 +129,7 @@ public class JRank extends JDialog {
 
 				file.writeObject(GPanel.GTop);
 				file.close();
-				JOptionPane.showMessageDialog(null, "Game successfully saved.");
+				JOptionPane.showMessageDialog(null, "Top10 successfully saved.");
 				setVisible(false);
 			} catch (IOException e) {
 				e.printStackTrace();
