@@ -71,6 +71,17 @@ public class Board {
 		return false;
 	}
 
+	public Gem Tip() {
+
+		for (int i = 0; i < tab.length; i++)
+			for (int a = 0; a < tab.length; a++) {
+				if (checkPlays(tab[i][a]) != Direction.None)
+					return tab[i][a];
+			}
+
+		return null;
+	}
+
 	/**
 	 * Verifica se a Gem g faz alguma combinação e retorna a sua direção
 	 * 
@@ -89,22 +100,22 @@ public class Board {
 		char comp = g.getSymbol();
 
 		// check combo para cima
-		if (lin - 2 >= 0 && (tab[lin - 1][col]).getSymbol() == comp
-				&& (tab[lin - 2][col]).getSymbol() == comp)
+		if (lin - 3 >= 0 && (tab[lin - 2][col]).getSymbol() == comp
+				&& (tab[lin - 3][col]).getSymbol() == comp)
 			return Direction.Top;
 		// check baixo
-		else if (lin + 2 < tab.length
-				&& (tab[lin + 1][col]).getSymbol() == comp
-				&& (tab[lin + 2][col]).getSymbol() == comp)
+		else if (lin + 3 < tab.length
+				&& (tab[lin + 2][col]).getSymbol() == comp
+				&& (tab[lin + 3][col]).getSymbol() == comp)
 			return Direction.Bottom;
 		// check esquerda
-		else if (col - 2 >= 0 && (tab[lin][col - 1]).getSymbol() == comp
-				&& (tab[lin][col - 2]).getSymbol() == comp)
+		else if (col - 3 >= 0 && (tab[lin][col - 2]).getSymbol() == comp
+				&& (tab[lin][col - 3]).getSymbol() == comp)
 			return Direction.Left;
 		// check direita
-		else if (col + 2 < tab.length
-				&& (tab[lin][col + 1]).getSymbol() == comp
-				&& (tab[lin][col + 2]).getSymbol() == comp)
+		else if (col + 3 < tab.length
+				&& (tab[lin][col + 2]).getSymbol() == comp
+				&& (tab[lin][col + 3]).getSymbol() == comp)
 			return Direction.Right;
 		// check meio horizontal
 		else if (col + 1 < tab.length && col - 1 >= 0
@@ -116,8 +127,54 @@ public class Board {
 				&& (tab[lin + 1][col]).getSymbol() == comp
 				&& (tab[lin - 1][col]).getSymbol() == comp)
 			return Direction.Vertical;
-		else
-			return Direction.None;
+		// esquerda baixo
+		else if (col - 1 >= 0 && lin + 2 < tab.length) {
+			if ((tab[lin + 1][col - 1]).getSymbol() == comp
+					&& (tab[lin + 2][col - 1]).getSymbol() == comp)
+				return Direction.Left;
+		}
+		// esquerda cima
+		else if (col - 1 >= 0 && lin - 2 >= 0) {
+			if ((tab[lin - 1][col - 1]).getSymbol() == comp
+					&& (tab[lin - 2][col - 1]).getSymbol() == comp)
+				return Direction.Left;
+		}
+		// direita baixo
+		else if (col + 1 < tab.length && lin + 2 < tab.length) {
+			if ((tab[lin + 1][col + 1]).getSymbol() == comp
+					&& (tab[lin + 2][col + 1]).getSymbol() == comp)
+				return Direction.Right;
+		}
+		// direita cima
+		else if (col + 1 < tab.length && lin - 2 >= 0) {
+			if ((tab[lin - 1][col + 1]).getSymbol() == comp
+					&& (tab[lin - 2][col + 1]).getSymbol() == comp)
+				return Direction.Right;
+		}
+		// cima direita
+		else if (lin - 1 >= 0 && col + 2 < tab.length
+				&& (tab[lin - 1][col+1]).getSymbol() == comp
+				&& (tab[lin - 1][col+2]).getSymbol() == comp)
+			return Direction.Vertical;
+		// cima esquerda
+		else if (lin - 1 >= 0 && col - 2 >= 0) {
+			if ((tab[lin - 1][col - 1]).getSymbol() == comp
+					&& (tab[lin - 2][col - 2]).getSymbol() == comp)
+				return Direction.Vertical;
+		}
+		// baixo direita
+		else if (lin + 1 < tab.length && col + 2 < tab.length
+				&& (tab[lin + 1][col +1]).getSymbol() == comp
+				&& (tab[lin + 1][col + 2]).getSymbol() == comp)
+			return Direction.Vertical;
+		// baixo esquerda
+		else if (lin + 1 < tab.length && col - 2 >= 0) {
+			if ((tab[lin + 1][col - 1]).getSymbol() == comp
+					&& (tab[lin + 1][col - 2]).getSymbol() == comp)
+				return Direction.Vertical;
+		}
+
+		return Direction.None;
 	}
 
 	/**
@@ -162,7 +219,6 @@ public class Board {
 		char symbol = ' ';
 		int p = 0;
 		Vector<Cell> delete = new Vector<Cell>();
-
 
 		for (int i = 0; i < tab.length; i++) {
 			if (tab[lin][i] == null) {

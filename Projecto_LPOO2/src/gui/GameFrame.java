@@ -1,5 +1,7 @@
 package gui;
 
+import gui.Animation.AnimationType;
+
 import java.applet.Applet;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -119,7 +121,9 @@ public class GameFrame extends JFrame {
 		GTip = new JButton("Tip");
 		GTip.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				
+				GPanel.Focus = GPanel.GBoard.Tip();
+				GPanel.GAnimation.update(null, null, AnimationType.None);
 				
 			}
 		});
