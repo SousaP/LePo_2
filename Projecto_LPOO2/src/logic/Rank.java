@@ -13,6 +13,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
+
 public class Rank {
 
 	List<Player> products = new ArrayList<Player>(10);

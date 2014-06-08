@@ -14,6 +14,10 @@ import logic.Board;
 import logic.Cell;
 import logic.Gem;
 
+/**
+ * Class que trata das animaçoes, sons e draw do jogo
+ *
+ */
 public class Animation {
 	AnimationType Type;
 	GamePanel GPanel;
@@ -31,6 +35,9 @@ public class Animation {
 	int nx;
 	int ny;
 
+	/**
+	 * @param GP - Recebe o GamePanel onde desenha
+	 */
 	public Animation(GamePanel GP) {
 
 		GPanel = GP;
@@ -43,6 +50,12 @@ public class Animation {
 		Focuspng = temp2.getImage();
 	}
 
+	/**
+	 * Altera a forma de desenhar com o Typo de animaçao
+	 * @param g1 null se nao for swap/irrelevante
+	 * @param g2 null se nao for swap/irrelevante
+	 * @param Type
+	 */
 	void update(Gem g1, Gem g2, AnimationType Type) {
 		this.g1 = g1;
 		this.g2 = g2;
@@ -55,6 +68,10 @@ public class Animation {
 
 	}
 
+	/**
+	 * @param g2d - recebido pelo Panel
+	 * desenha o board
+	 */
 	public void DrawBoard(Graphics2D g2d) {
 		GBoard = GPanel.GBoard;
 		
@@ -107,6 +124,11 @@ public class Animation {
 		// this.Type = AnimationType.None;
 	}
 
+	/**
+	 * 
+	 * @param g2d - Recebe do DrawBoard em caso de a animaçao ser
+	 * de preenchimento do board
+	 */
 	private void GemFalling(Graphics2D g2d) {
 		if (!GBoard.FreeSpace())
 			return;
@@ -157,6 +179,11 @@ public class Animation {
 
 	}
 
+	/**
+	 * 
+	 * Animaçao de troca de peças
+	 * @param g2d - recebido pelo DrawBoard
+	 */
 	private void GemSwap(Graphics2D g2d) {
 
 		if (g1 == null || g2 == null)
@@ -216,6 +243,11 @@ public class Animation {
 
 	}
 
+	/**
+	 * 
+	 * Funçao que cria as threads para o desenho de animaçoes
+	 * 
+	 */
 	private void BoardAction() {
 		ActionListener myTimerListener = new ActionListener() {
 			@Override
@@ -281,6 +313,10 @@ public class Animation {
 
 	}
 
+	/**
+	 * Reproduz um som ou musica
+	 * @param file - nome e pasta do ficheiro
+	 */
 	public void playSound(final String file) {
 		// "resources/musica.wav"
 		if (!GPanel.SoundOn)
@@ -293,6 +329,9 @@ public class Animation {
 		song.play();
 	}
 
+	/**
+	 * Tipos de Animaçao
+	 */
 	public enum AnimationType {
 		Swap, SwapBack, Fill, None
 	}

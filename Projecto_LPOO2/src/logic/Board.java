@@ -513,54 +513,7 @@ public class Board {
 
 	}
 
-	/**
-	 * Troca a posição de duas peças
-	 * 
-	 * @param peças
-	 *            a trocar de posição
-	 * 
-	 */
-	public void swapD(Gem g1, Gem g2) {
-		Cell c = g1.getPos();
 
-		g1.pos = g2.getPos();
-		g2.pos = c;
-
-		SetPos(g1.getPos().getCol(), g1.getPos().getLine(), g1);
-		SetPos(g2.getPos().getCol(), g2.getPos().getLine(), g2);
-	}
-
-	Gem nullLine(int l, int col) {
-		Gem ret = null;
-		for (; col >= 0; col--) {
-			if (tab[l][col] != null)
-				ret = tab[l][col];
-		}
-		return ret;
-	}
-
-	void pushNullUp() {
-		for (int i = (tab.length - 1); i > 0; i--) {
-			for (int j = 0; j < tab.length; j++) {
-				if (tab[i][j] == null) {
-					if (nullLine(i, (j - 1)) != null) {
-						tab[i][j] = nullLine(i, (j - 1));
-						tab[i][j].pos = new Cell(i, j);
-					}
-				}
-			}
-		}
-	}
-
-	void fillTab2() {
-		for (int i = (tab.length - 1); i >= 1; i--) {
-			for (int j = 0; j < tab.length; j++) {
-				if (tab[i][j] == null) {
-					tab[i][j] = new Gem(i, j);
-				}
-			}
-		}
-	}
 
 	/**
 	 * Coloca uma peça numa posição do tabuleiro

@@ -17,6 +17,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+/**
+ * Frame do Jogo
+ *
+ */
 public class GameFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private GamePanel GPanel;
@@ -43,6 +47,9 @@ public class GameFrame extends JFrame {
 		
 	}
 	
+	/**
+	 * Adiciona acçoes aos botoes do jogo
+	 */
 	private void ButtonsActions() {
 		GNewGame = new JButton("New Game");
 		GNewGame.addActionListener(new ActionListener()
@@ -130,6 +137,10 @@ public class GameFrame extends JFrame {
 
 	}
 	
+	/**
+	 * Adiciona o botao Tip e calcula suas dimensoes
+	 * quando em jogo
+	 */
 	public void AddTip(){
 		GTip.setBackground(Color.YELLOW);
 		GTip.setForeground(Color.BLACK);
@@ -137,6 +148,9 @@ public class GameFrame extends JFrame {
 	
 	}
 	
+	/**
+	 * Adiciona botoes base da interface
+	 */
 	public void addButtons() {
 
 		GButtons.setLayout(new GridLayout(1, 4));

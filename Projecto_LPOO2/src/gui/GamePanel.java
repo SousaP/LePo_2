@@ -20,6 +20,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * Panel do jogo
+ *
+ */
 public class GamePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	boolean Inicio;
@@ -41,6 +45,9 @@ public class GamePanel extends JPanel {
 	int limy0;
 	int limyf;
 
+	/**
+	 * @param gameFrame - Recebe a Frame onde esta incluido este painel
+	 */
 	public GamePanel(GameFrame gameFrame) {
 		SoundOn = true;
 		GFrame = gameFrame;
@@ -55,6 +62,9 @@ public class GamePanel extends JPanel {
 		addMouse();
 	}
 
+	/**
+	 * @param I - True para incio sem o jogo, false para começar um jogo
+	 */
 	public void updateBegin(boolean I) {
 		Inicio = I;
 		if (!Inicio) {
@@ -71,6 +81,9 @@ public class GamePanel extends JPanel {
 		repaint();
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponents(g);
@@ -88,10 +101,10 @@ public class GamePanel extends JPanel {
 		// System.out.printf("aqui");
 	}
 
-	void update() {
-		addMouse();
-	}
 
+	/**
+	 * Load da imagem de entrada
+	 */
 	void loadImages() {
 		ImageIcon temp;
 
@@ -99,6 +112,11 @@ public class GamePanel extends JPanel {
 		Intro = temp.getImage();
 	}
 
+	/**
+	 * Rato é o input utilizado neste jogo
+	 * Esa funçao recebe e trata esses inputs
+	 * 
+	 */
 	private void addMouse() {
 
 		addMouseListener(new MouseAdapter() {
@@ -161,6 +179,10 @@ public class GamePanel extends JPanel {
 
 	}
 
+	/**
+	 * Desenha a Label que mostra o Score e o tempo
+	 * durante o jogo
+	 */
 	private void DrawScore() {
 		// <html>Score:<br>1000</html>
 		JScore.setText("<html><br>Score: <br>" + Score + "<br>Time:<br>" + Time
@@ -172,6 +194,9 @@ public class GamePanel extends JPanel {
 
 	}
 
+	/**
+	 * Thread para incrementar o tempo quando em jogo
+	 */
 	public void IncTime() {
 		ActionListener myTimerListener = new ActionListener() {
 			@Override
