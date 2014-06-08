@@ -16,8 +16,6 @@ import java.util.Random;
 
 public class Rank {
 
-	List<Player> products = new ArrayList<Player>(10);
-
 	private static Comparator<Player> COMPARATOR = new Comparator<Player>() {
 		// This is where the sorting happens.
 		public int compare(Player p1, Player p2) {
@@ -34,9 +32,8 @@ public class Rank {
 		}
 	}
 
-	public String[] getRank() {
-		return null;
-
+	public List<Player> getRank() {
+		return Rank;
 	}
 
 	void updateRank(Player P) {

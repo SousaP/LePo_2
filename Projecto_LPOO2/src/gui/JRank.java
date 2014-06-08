@@ -1,6 +1,8 @@
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,18 +14,21 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import logic.Rank;
 
 /**
  * Funçao que trata o Rank
- *
+ * 
  */
 public class JRank extends JDialog {
 	private static final long serialVersionUID = 1L;
@@ -37,9 +42,10 @@ public class JRank extends JDialog {
 			+ "/Top/";
 
 	/**
-	 * @param GF : Frame do jogo
-	 * @param GP : Panel do jogo
-	 * Contrutor
+	 * @param GF
+	 *            : Frame do jogo
+	 * @param GP
+	 *            : Panel do jogo Contrutor
 	 */
 	JRank(GameFrame GF, GamePanel GP) {
 		setSize(300, 200);
@@ -49,7 +55,7 @@ public class JRank extends JDialog {
 
 		getContentPane().setLayout(new GridLayout(2, 1, 0, 0));
 		setLocationRelativeTo(null);
-		 ButtonsActions();
+		ButtonsActions();
 	}
 
 	/**
@@ -122,18 +128,17 @@ public class JRank extends JDialog {
 	 * Load do Top10
 	 */
 	public void Load() {
-			try {
-				FileInputStream fin = new FileInputStream(SaveFolder + "Top10");
-				ObjectInputStream ois = new ObjectInputStream(fin);
-				Top = (Rank) ois.readObject();
-				ois.close();
+		try {
+			FileInputStream fin = new FileInputStream(SaveFolder + "Top10");
+			ObjectInputStream ois = new ObjectInputStream(fin);
+			Top = (Rank) ois.readObject();
+			ois.close();
 
-				setVisible(false);
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Erro ao fazer Load");
-			}
-		
+			setVisible(false);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro ao fazer Load");
+		}
+
 	}
-
 }
