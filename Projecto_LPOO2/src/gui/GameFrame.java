@@ -120,6 +120,7 @@ public class GameFrame extends JFrame {
 					setLocationRelativeTo(null);
 				}
 				else if(choice == 1){
+					Rank10.Save();
 					System.exit(0);
 				}
 

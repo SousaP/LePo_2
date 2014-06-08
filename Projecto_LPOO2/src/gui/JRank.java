@@ -35,7 +35,6 @@ public class JRank extends JDialog {
 	private GamePanel GPanel;
 	private JTextField txtSave;
 	JButton Save;
-	Rank Top;
 	Player AddP;
 
 	private static final String SaveFolder = System.getProperty("user.dir")
@@ -50,7 +49,6 @@ public class JRank extends JDialog {
 	public JRank(GamePanel GP) {
 		setTitle("Top10");
 		GPanel = GP;
-		Top = GPanel.GTop;
 		Load();
 		getContentPane().setLayout(new GridLayout(2, 1, 0, 0));
 
@@ -88,7 +86,6 @@ public class JRank extends JDialog {
 				if(!GPanel.Inicio){
 				AddP = new Player(txtSave.getText(), "Time", GPanel.Score);
 				GPanel.GTop.updateRank(AddP);
-				
 				}
 			}
 		});
@@ -130,7 +127,7 @@ public class JRank extends JDialog {
 
 				file.writeObject(GPanel.GTop);
 				file.close();
-				JOptionPane.showMessageDialog(null, "Top10 successfully saved.");
+				JOptionPane.showMessageDialog(null, "Game successfully saved.");
 				setVisible(false);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -148,8 +145,7 @@ public class JRank extends JDialog {
 		try {
 			FileInputStream fin = new FileInputStream(SaveFolder + "Top10");
 			ObjectInputStream ois = new ObjectInputStream(fin);
-			Top = (Rank) ois.readObject();
-			GPanel.GTop = Top;
+			GPanel.GTop = (Rank) ois.readObject();
 			ois.close();
 
 			setVisible(false);
@@ -173,13 +169,13 @@ public class JRank extends JDialog {
 		// Shows the current high scores
 		try {
 			String line = null;
-			for (int i = 0; i < Top.getRank().size(); i++) {
-				if (Top.getRank().get(i).getName() == null)
+			for (int i = 0; i < GPanel.GTop.getRank().size(); i++) {
+				if (GPanel.GTop.getRank().get(i).getName() == null)
 					break;
 				else {
-					line = Top.getRank().get(i).getName() + "  "
-							+ Top.getRank().get(i).getMode() + "  "
-							+ Top.getRank().get(i).getScore() + "\n";
+					line = GPanel.GTop.getRank().get(i).getName() + "  "
+							+ GPanel.GTop.getRank().get(i).getMode() + "  "
+							+ GPanel.GTop.getRank().get(i).getScore() + "\n";
 					model.addElement(line);
 				}
 			}

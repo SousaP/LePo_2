@@ -15,7 +15,7 @@ public class Rank implements java.io.Serializable {
 		}
 	};
 
-	List<Player> Rank = new ArrayList<Player>(10);
+	public List<Player> Rank = new ArrayList<Player>(10);
 
 	public Rank() {
 		Player temp = new Player(null, null);
